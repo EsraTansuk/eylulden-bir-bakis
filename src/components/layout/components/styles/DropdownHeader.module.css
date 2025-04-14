@@ -1,0 +1,35 @@
+.menuItem {
+  position: relative;
+}
+
+.menuItem:hover .dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+  transition-timing-function: cubic-bezier(0.87, 0.02, 0.23, 1.005);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Mobil görünüm */
+@media (max-width: 1024px) {
+  .dropdown {
+    position: static;
+    transform: none;
+    transition: none;
+    visibility: visible;
+    opacity: 1;
+    display: none;
+  }
+  
+  .menuItem:hover .dropdown {
+    display: block;
+  }
+} 

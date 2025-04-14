@@ -1,21 +1,67 @@
 @import "tailwindcss";
+@import "../../styles/colors.css";
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* Ana Renkler */
+  --color-primary: var(--primary-color, #6eb48c);
+  --color-secondary: var(--secondary-color, #D4A5CB);
+  --color-background: var(--background-color, #FFFFFF);
+  
+  /* Metin Renkleri */
+  --color-text: var(--text-color, #4A4A4A);
+  --color-text-light: var(--text-light, #777777);
+  --color-text-lighter: var(--text-lighter, #999999);
+  --color-text-white: var(--text-white, #FFFFFF);
+  
+  /* Nötr Renkler */
+  --color-light: var(--light-gray, #F9F9F9);
+  --color-medium: var(--medium-gray, #EEEEEE);
+  
+  /* Vurgu Renkleri */
+  --color-accent-primary: var(--accent-primary, #5a9472);
+  --color-accent-success: var(--accent-success, #85B79D);
+  --color-accent-warning: var(--accent-warning, #E6C4C0);
+  
+  /* Hover/Active/Focus Durumları */
+  --color-primary-hover: var(--primary-hover, #5a9472);
+  --color-primary-active: var(--primary-active, #4e8162);
+  
+  /* Saydamlık Varyasyonları */
+  --color-transparent-primary: var(--primary-transparent, rgba(110, 180, 140, 0.9));
+  --color-transparent-secondary: var(--secondary-transparent, rgba(212, 165, 203, 0.9));
+  
+  /* Gölgeler */
+  --color-shadow-light: var(--shadow-light, rgba(0, 0, 0, 0.05));
+  --color-shadow-medium: var(--shadow-medium, rgba(0, 0, 0, 0.1));
+  
+  /* Kenarlık Renkleri */
+  --color-border: var(--border-color, #EEEEEE);
+  --color-border-light: var(--border-light, #F9F9F9);
+  
+  /* Link Renkleri */
+  --color-link: var(--link-color, #6eb48c);
+  --color-link-hover: var(--link-hover, #5a9472);
+  
+  /* Özel Renkler */
+  --color-dot-bg: var(--dot-bg-color, #343035);
+  --color-cindoruk: var(--primary-color, #6eb48c);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary-color: #7bc59a;
+    --accent-primary: #5a9472;
+    --primary-hover: #5a9472;
+    --primary-active: #4e8162;
   }
 }
 
