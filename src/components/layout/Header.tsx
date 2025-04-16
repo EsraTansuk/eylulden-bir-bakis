@@ -47,17 +47,7 @@ export const Header = () => {
 
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         {/* Üst Bar - Logo Alanı */}
-        <div className="bg-white flex justify-center items-center">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <div className="text-center">
-              <Link href="/" className="inline-block">
-                <h1 className="font-playfair text-4xl text-primary transition-colors duration-300 font-bold ">
-                  Eylülden Bir Bakış
-                </h1>
-              </Link>
-            </div>
-          </div>
-        </div>
+        
 
         {/* Ana Navigasyon */}
         <nav className="bg-white shadow-sm">
@@ -88,88 +78,93 @@ export const Header = () => {
                 `}
                 >
                   <li className="block lg:inline-block py-2 lg:py-0">
-                    <Link
-                      href="/"
-                      className={`
-                        text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
-                        border-b-2 pb-1 transition-all duration-300 
-                        ${
-                          isActive("/")
-                            ? "border-primary text-primary"
-                            : "border-transparent text-gray-700 hover:text-primary hover:border-primary transition-[border-width] duration-300 ease-in-out"
-                        }
-                      `}
-                    >
-                      Ana Sayfa
-                    </Link>
+                    <div className="relative">
+                      <Link
+                        href="/"
+                        className={`
+                          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
+                          transition-all duration-300 pb-1 block
+                          ${
+                            isActive("/")
+                              ? "text-primary nav-item active"
+                              : "text-gray-700 hover:text-primary nav-item"
+                          }
+                        `}
+                      >
+                        Ana Sayfa
+                      </Link>
+                    </div>
                   </li>
 
                   {/* Dropdown menüler */}
-                  <div className="flex gap-4 justify-center items-center">
-                    <DropdownHeader
-                      title="Yaşam"
-                      menuKey="lifestyle"
-                      items={dropdownMenus.lifestyle}
-                      isActive={isActive}
-                      pathname={pathname}
-                    />
 
-                    <DropdownHeader
-                      title="Seyahat"
-                      menuKey="travel"
-                      items={dropdownMenus.travel}
-                      isActive={isActive}
-                      pathname={pathname}
-                    />
+                  <DropdownHeader
+                    title="Yaşam"
+                    menuKey="lifestyle"
+                    items={dropdownMenus.lifestyle}
+                    isActive={isActive}
+                    pathname={pathname}
+                  />
 
-                    <DropdownHeader
-                      title="Fotoğraf"
-                      menuKey="photography"
-                      items={dropdownMenus.photography}
-                      isActive={isActive}
-                      pathname={pathname}
-                    />
+                  <DropdownHeader
+                    title="Seyahat"
+                    menuKey="travel"
+                    items={dropdownMenus.travel}
+                    isActive={isActive}
+                    pathname={pathname}
+                  />
 
-                    <DropdownHeader
-                      title="Anılar"
-                      menuKey="memories"
-                      items={dropdownMenus.memories}
-                      isActive={isActive}
-                      pathname={pathname}
-                    />
-                  </div>
+                  <DropdownHeader
+                    title="Fotoğraf"
+                    menuKey="photography"
+                    items={dropdownMenus.photography}
+                    isActive={isActive}
+                    pathname={pathname}
+                  />
+
+                  <DropdownHeader
+                    title="Anılar"
+                    menuKey="memories"
+                    items={dropdownMenus.memories}
+                    isActive={isActive}
+                    pathname={pathname}
+                  />
 
                   <li className="block lg:inline-block py-2 lg:py-0">
-                    <Link
-                      href="/about"
-                      className={`
-                        text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
-                        border-b-2 pb-1 transition-all duration-300
-                        ${
-                          isActive("/about")
-                            ? "border-primary text-primary"
-                            : "border-transparent text-gray-700 hover:text-primary hover:border-primary transition-[border-width] duration-300 ease-in-out"
-                        }
-                      `}
-                    >
-                      Hakkımda
-                    </Link>
+                    <div className="relative">
+                      <Link
+                        href="/about"
+                        className={`
+                          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
+                          transition-all duration-300 pb-1 block
+                          ${
+                            isActive("/about")
+                              ? "text-primary nav-item active"
+                              : "text-gray-700 hover:text-primary nav-item"
+                          }
+                        `}
+                      >
+                        Hakkımda
+                      </Link>
+                    </div>
                   </li>
                   <li className="block lg:inline-block py-2 lg:py-0">
-                    <Link
-                      href="/contact"
-                      className={`
-                        text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
-                        border-b-2 pb-1 transition-all duration-300
-                        ${
-                          isActive("/contact")
-                            ? "border-primary text-primary"
-                            : "border-transparent text-gray-700 hover:text-primary hover:border-primary transition-[border-width] duration-300 ease-in-out"
-                        }
-                      `}
-                    >
-                      İletişim
-                    </Link>
+                    <div className="relative">
+                      <Link
+                        href="/contact"
+                        className={`
+                          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
+                          transition-all duration-300 pb-1 block
+                          ${
+                            isActive("/contact")
+                              ? "text-primary nav-item active"
+                              : "text-gray-700 hover:text-primary nav-item"
+                          }
+                        `}
+                      >
+                        İletişim
+                      </Link>
+                    </div>
                   </li>
                 </ul>
               </div>

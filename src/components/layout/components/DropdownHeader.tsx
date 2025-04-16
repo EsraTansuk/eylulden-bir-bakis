@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React, { useRef } from "react";
 
-
 // Dropdown öğesi için tip tanımı
 interface DropdownItem {
   name: string;
@@ -37,17 +36,17 @@ export const DropdownHeader: React.FC<DropdownHeaderProps> = ({
     <li
       ref={dropdownRef}
       className={`
-        block lg:inline-block py-2 lg:py-0 relative group mt-1
+        block lg:inline-block py-2 lg:py-0 relative group
       `}
     >
-      <button
+      <div
         className={`
-          text-sm tracking-wider font-medium text-gray-700 px-4 lg:px-0 uppercase flex items-center
-          border-b-2 pb-1 transition-all duration-300 cursor-pointer
+          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase flex items-center
+          cursor-pointer relative pb-1
           ${
             isDropdownActive(`/${menuKey}`)
-              ? "border-primary text-primary"
-              : "border-transparent text-dotBgColor group-hover:text-primary group-hover:border-primary transition-[width] duration-300 ease-in-out"
+              ? "text-primary nav-item active"
+              : "text-gray-700 group-hover:text-primary nav-item"
           }
         `}
       >
@@ -66,32 +65,42 @@ export const DropdownHeader: React.FC<DropdownHeaderProps> = ({
             d="M19 9l-7 7-7-7"
           />
         </svg>
-      </button>
+        
+        {/* Animasyonlu border */}
+        <span 
+          className={`
+            absolute bottom-0 left-0 w-0 h-0.5 bg-primary
+            transition-all duration-300 ease-in-out
+            ${isDropdownActive(`/${menuKey}`) ? "w-full" : "group-hover:w-full"}
+          `}
+        ></span>
+      </div>
 
       <div
         className={`
-        lg:absolute left-0 top-full mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden
+        lg:absolute left-0 top-full w-48 bg-white shadow-lg rounded-md overflow-hidden
         invisible opacity-0 transform translate-y-[-10px] 
         group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 
-        transition-all duration-300 py-2
+        transition-all duration-300 py-2 
       `}
       >
         {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`
-              block px-4 py-2 text-sm relative
-              transition-colors duration-200
-              ${
-                isActive(item.href)
-                  ? "bg-primary text-white"
-                  : "text-gray-700 hover:text-primary before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-all before:duration-300 hover:before:w-full"
-              }
-            `}
-          >
-            {item.name}
-          </Link>
+          <div key={item.href} className="relative">
+            <Link
+              href={item.href}
+              className={`
+                block text-sm px-4 py-2
+                transition-colors duration-200
+                ${
+                  isActive(item.href)
+                    ? "bg-primary text-white"
+                    : "text-gray-700 hover:text-primary dropdown-item"
+                }
+              `}
+            >
+              {item.name}
+            </Link>
+          </div>
         ))}
       </div>
     </li>
