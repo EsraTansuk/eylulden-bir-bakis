@@ -43,7 +43,7 @@ export const Header = () => {
   return (
     <>
       {/* Sabit header için boşluk */}
-      <div className="h-32 lg:h-40"></div>
+      <div className="h-12 lg:h-16"></div>
 
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         {/* Üst Bar - Logo Alanı */}
