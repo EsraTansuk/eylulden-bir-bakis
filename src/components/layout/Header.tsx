@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { DropdownHeader } from "./components/DropdownHeader";
 
@@ -14,6 +14,20 @@ export const Header = () => {
   const isActive = (path: string) => {
     return pathname === path;
   };
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Dropdown menü içerikleri
   const dropdownMenus = {
@@ -52,15 +66,20 @@ export const Header = () => {
   return (
     <>
       {/* Sabit header için boşluk */}
-      <div className="h-12 lg:h-16"></div>
+      <div className="h-16 lg:h-32"></div>
 
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         {/* Üst Bar - Logo Alanı */}
-        <div className="bg-white border-b border-gray-100">
+        {/* Logo Alanı - Scroll ile kayar */}
+        <div
+          className={`w-full bg-white border-b border-gray-100 ${
+            isScrolled ? "hidden" : ""
+          }`}
+        >
           <div className="max-w-7xl mx-auto px-4 py-3 flex justify-center items-center">
             <Link href="/">
-              <h1 className="text-3xl lg:text-5xl font-charmonman text-primary text-center py-2 hover:text-primaryState-hover transition-colors duration-300 tracking-wide">
-                Eylülden bir bakış
+              <h1 className="text-3xl lg:text-5xl font-charmonman font-bold text-textColor text-center py-2 hover:text-primaryState-hover transition-colors duration-300 tracking-wide">
+                eylülden bir bakış
               </h1>
             </Link>
           </div>
