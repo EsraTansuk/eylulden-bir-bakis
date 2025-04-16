@@ -44,7 +44,7 @@ export const Header = () => {
     <>
       {/* Sabit header için boşluk */}
       <div className="h-32 lg:h-40"></div>
-      
+
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         {/* Üst Bar - Logo Alanı */}
         <div className="bg-white flex justify-center items-center">
@@ -58,13 +58,13 @@ export const Header = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Ana Navigasyon */}
         <nav className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 flex justify-center items-center">
             <div className="flex justify-between items-center">
               {/* Mobil Menü Butonu */}
-              <button 
+              <button
                 className="lg:hidden p-4 focus:outline-none"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
@@ -105,37 +105,39 @@ export const Header = () => {
                   </li>
 
                   {/* Dropdown menüler */}
-                  <DropdownHeader
-                    title="Yaşam"
-                    menuKey="lifestyle"
-                    items={dropdownMenus.lifestyle}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
+                  <div className="flex gap-4 justify-center items-center">
+                    <DropdownHeader
+                      title="Yaşam"
+                      menuKey="lifestyle"
+                      items={dropdownMenus.lifestyle}
+                      isActive={isActive}
+                      pathname={pathname}
+                    />
 
-                  <DropdownHeader
-                    title="Seyahat"
-                    menuKey="travel"
-                    items={dropdownMenus.travel}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
+                    <DropdownHeader
+                      title="Seyahat"
+                      menuKey="travel"
+                      items={dropdownMenus.travel}
+                      isActive={isActive}
+                      pathname={pathname}
+                    />
 
-                  <DropdownHeader
-                    title="Fotoğraf"
-                    menuKey="photography"
-                    items={dropdownMenus.photography}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
+                    <DropdownHeader
+                      title="Fotoğraf"
+                      menuKey="photography"
+                      items={dropdownMenus.photography}
+                      isActive={isActive}
+                      pathname={pathname}
+                    />
 
-                  <DropdownHeader
-                    title="Anılar"
-                    menuKey="memories"
-                    items={dropdownMenus.memories}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
+                    <DropdownHeader
+                      title="Anılar"
+                      menuKey="memories"
+                      items={dropdownMenus.memories}
+                      isActive={isActive}
+                      pathname={pathname}
+                    />
+                  </div>
 
                   <li className="block lg:inline-block py-2 lg:py-0">
                     <Link
