@@ -66,9 +66,10 @@ module.exports = {
         dotBgColor: "var(--color-dot-bg)",
         cindoruk: "var(--color-cindoruk)",
       },
-      fontFamily: {
-        playfair: ["Playfair Display", "serif"],
-        sans: ["Inter", "sans-serif"],
+      fontFace: {
+        charmonman: {
+          fontFamily: "var(--font-charmonman)",
+        },
       },
       boxShadow: {
         sm: "0 2px 4px rgba(0, 0, 0, 0.05)",

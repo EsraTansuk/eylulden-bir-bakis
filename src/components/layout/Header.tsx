@@ -17,26 +17,35 @@ export const Header = () => {
 
   // Dropdown menü içerikleri
   const dropdownMenus = {
-    lifestyle: [
-      { name: "Moda", href: "/lifestyle/fashion" },
-      { name: "Dekorasyon", href: "/lifestyle/decoration" },
-      { name: "Sağlıklı Yaşam", href: "/lifestyle/wellness" },
-      { name: "Mutfak", href: "/lifestyle/kitchen" },
+    reportage: [
+      { name: "Gençler", href: "/reportage/youth" },
+      { name: "Kadınlar", href: "/reportage/women" },
+      { name: "Emekçiler", href: "/reportage/workers" },
+      { name: "Yaratıcılar", href: "/reportage/creators" },
+      { name: "Kurumsal", href: "/reportage/corporate" },
     ],
-    travel: [
-      { name: "Destinasyonlar", href: "/travel/destinations" },
-      { name: "Seyahat Rehberi", href: "/travel/guides" },
-      { name: "Gezi Notları", href: "/travel/notes" },
+    streetStory: [
+      { name: "Mahalle Hayatları", href: "/street-story/neighborhood-life" },
+      { name: "Sokak ve Mekanlar", href: "/street-story/streets-and-places" },
+      {
+        name: "Kültür ve Etkinlikler",
+        href: "/street-story/culture-and-events",
+      },
+      { name: "Küçük Keşifler", href: "/street-story/small-discoveries" },
     ],
-    photography: [
-      { name: "Portreler", href: "/photography/portraits" },
-      { name: "Manzara", href: "/photography/landscape" },
-      { name: "Sokak", href: "/photography/street" },
+    natureAndLife: [
+      { name: "Doğa ve Hayat", href: "/nature-and-life/nature-and-life" },
+      {
+        name: "Toprak ve Üretim",
+        href: "/nature-and-life/soil-and-production",
+      },
+      { name: "Sürdürülebilirlik", href: "/nature-and-life/sustainability" },
+      { name: "Hayvanlar", href: "/nature-and-life/animals" },
     ],
     memories: [
-      { name: "Günlükler", href: "/memories/diaries" },
-      { name: "Anılar", href: "/memories/stories" },
-      { name: "Koleksiyonlar", href: "/memories/collections" },
+      { name: "Yolculuk Anıları", href: "/travel-memories" },
+      { name: "Anlatılar", href: "/stories" },
+      { name: "Fotoğraflar", href: "/photos" },
     ],
   };
 
@@ -47,7 +56,15 @@ export const Header = () => {
 
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
         {/* Üst Bar - Logo Alanı */}
-        
+        <div className="bg-white border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 py-3 flex justify-center items-center">
+            <Link href="/">
+              <h1 className="text-3xl lg:text-5xl font-charmonman text-primary text-center py-2 hover:text-primaryState-hover transition-colors duration-300 tracking-wide">
+                Eylülden bir bakış
+              </h1>
+            </Link>
+          </div>
+        </div>
 
         {/* Ana Navigasyon */}
         <nav className="bg-white shadow-sm">
@@ -99,25 +116,25 @@ export const Header = () => {
                   {/* Dropdown menüler */}
 
                   <DropdownHeader
-                    title="Yaşam"
-                    menuKey="lifestyle"
-                    items={dropdownMenus.lifestyle}
+                    title="Raportaj"
+                    menuKey="reportage"
+                    items={dropdownMenus.reportage}
                     isActive={isActive}
                     pathname={pathname}
                   />
 
                   <DropdownHeader
-                    title="Seyahat"
-                    menuKey="travel"
-                    items={dropdownMenus.travel}
+                    title="Sokak Hikayeleri"
+                    menuKey="streetStory"
+                    items={dropdownMenus.streetStory}
                     isActive={isActive}
                     pathname={pathname}
                   />
 
                   <DropdownHeader
-                    title="Fotoğraf"
-                    menuKey="photography"
-                    items={dropdownMenus.photography}
+                    title="Doğa ve Hayat"
+                    menuKey="natureAndLife"
+                    items={dropdownMenus.natureAndLife}
                     isActive={isActive}
                     pathname={pathname}
                   />

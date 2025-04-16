@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "../../styles/colors.css";
 @tailwind utilities;
@@ -8,47 +10,61 @@
   --color-foreground: var(--foreground);
 }
 
+/* Temel font varsayılanı */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, sans-serif;
+}
+
 @theme {
+  --font-charmonman: "Charmonman", cursive;
   /* Ana Renkler */
   --color-primary: var(--primary-color, #6eb48c);
-  --color-secondary: var(--secondary-color, #D4A5CB);
-  --color-background: var(--background-color, #FFFFFF);
-  
+  --color-secondary: var(--secondary-color, #d4a5cb);
+  --color-background: var(--background-color, #ffffff);
+
   /* Metin Renkleri */
-  --color-text: var(--text-color, #4A4A4A);
+  --color-text: var(--text-color, #4a4a4a);
   --color-text-light: var(--text-light, #777777);
   --color-text-lighter: var(--text-lighter, #999999);
-  --color-text-white: var(--text-white, #FFFFFF);
-  
+  --color-text-white: var(--text-white, #ffffff);
+
   /* Nötr Renkler */
-  --color-light: var(--light-gray, #F9F9F9);
-  --color-medium: var(--medium-gray, #EEEEEE);
-  
+  --color-light: var(--light-gray, #f9f9f9);
+  --color-medium: var(--medium-gray, #eeeeee);
+
   /* Vurgu Renkleri */
   --color-accent-primary: var(--accent-primary, #5a9472);
-  --color-accent-success: var(--accent-success, #85B79D);
-  --color-accent-warning: var(--accent-warning, #E6C4C0);
-  
+  --color-accent-success: var(--accent-success, #85b79d);
+  --color-accent-warning: var(--accent-warning, #e6c4c0);
+
   /* Hover/Active/Focus Durumları */
   --color-primary-hover: var(--primary-hover, #5a9472);
   --color-primary-active: var(--primary-active, #4e8162);
-  
+
   /* Saydamlık Varyasyonları */
-  --color-transparent-primary: var(--primary-transparent, rgba(110, 180, 140, 0.9));
-  --color-transparent-secondary: var(--secondary-transparent, rgba(212, 165, 203, 0.9));
-  
+  --color-transparent-primary: var(
+    --primary-transparent,
+    rgba(110, 180, 140, 0.9)
+  );
+  --color-transparent-secondary: var(
+    --secondary-transparent,
+    rgba(212, 165, 203, 0.9)
+  );
+
   /* Gölgeler */
   --color-shadow-light: var(--shadow-light, rgba(0, 0, 0, 0.05));
   --color-shadow-medium: var(--shadow-medium, rgba(0, 0, 0, 0.1));
-  
+
   /* Kenarlık Renkleri */
-  --color-border: var(--border-color, #EEEEEE);
-  --color-border-light: var(--border-light, #F9F9F9);
-  
+  --color-border: var(--border-color, #eeeeee);
+  --color-border-light: var(--border-light, #f9f9f9);
+
   /* Link Renkleri */
   --color-link: var(--link-color, #6eb48c);
   --color-link-hover: var(--link-hover, #5a9472);
-  
+
   /* Özel Renkler */
   --color-dot-bg: var(--dot-bg-color, #343035);
   --color-cindoruk: var(--primary-color, #6eb48c);
@@ -63,10 +79,4 @@
     --primary-hover: #5a9472;
     --primary-active: #4e8162;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
