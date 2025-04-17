@@ -70,6 +70,18 @@ module.exports = {
         charmonman: {
           fontFamily: "var(--font-charmonman)",
         },
+        categoryTitle: {
+          fontFamily: "var(--font-raleway)",
+        },
+        mainTitle: {
+          fontFamily: "var(--font-newsreader)",
+        },
+        subHeadling: {
+          fontFamily: "var(--font-workSans)",
+        },
+        text: {
+          fontFamily: "var(--font-inter)",
+        },
       },
       boxShadow: {
         sm: "0 2px 4px rgba(0, 0, 0, 0.05)",

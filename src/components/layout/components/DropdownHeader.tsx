@@ -36,12 +36,12 @@ export const DropdownHeader: React.FC<DropdownHeaderProps> = ({
     <li
       ref={dropdownRef}
       className={`
-        block lg:inline-block py-2 lg:py-0 relative group
+        block lg:inline-block py-2 lg:py-0 relative group font-categoryTitle 
       `}
     >
       <div
         className={`
-          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase flex items-center
+          text-sm tracking-wider font-bold px-4 lg:px-0 uppercase flex items-center
           cursor-pointer relative pb-1
           ${
             isDropdownActive(`/${menuKey}`)

@@ -102,7 +102,7 @@ export const Header = () => {
               </button>
 
               {/* Menü Öğeleri */}
-              <div ref={dropdownRef} className="relative w-full lg:w-auto">
+              <div ref={dropdownRef} className="relative w-full lg:w-auto ">
                 <ul
                   className={`
                   lg:flex lg:items-center lg:justify-center lg:space-x-8 w-full py-4
@@ -110,16 +110,16 @@ export const Header = () => {
                   absolute lg:relative left-0 top-full lg:top-auto
                   bg-white lg:bg-transparent
                   shadow-lg lg:shadow-none
-                  z-50 justify-center items-center
+                  z-50 justify-center items-center font-categoryTitle 
                 `}
                 >
-                  <li className="block lg:inline-block py-2 lg:py-0">
+                  <li className="block lg:inline-block py-2 lg:py-0 ">
                     <div className="relative">
                       <Link
                         href="/"
                         className={`
-                          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
-                          transition-all duration-300 pb-1 block
+                          text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
+                          transition-all duration-300 pb-1 block 
                           ${
                             isActive("/")
                               ? "text-primary nav-item active"
@@ -166,12 +166,12 @@ export const Header = () => {
                     pathname={pathname}
                   />
 
-                  <li className="block lg:inline-block py-2 lg:py-0">
+                  <li className="block lg:inline-block py-2 lg:py-0 font-bold">
                     <div className="relative">
                       <Link
                         href="/about"
                         className={`
-                          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
+                          text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
                           transition-all duration-300 pb-1 block
                           ${
                             isActive("/about")
@@ -184,12 +184,12 @@ export const Header = () => {
                       </Link>
                     </div>
                   </li>
-                  <li className="block lg:inline-block py-2 lg:py-0">
-                    <div className="relative">
+                  <li className="block lg:inline-block py-2 lg:py-0 ">
+                    <div className="relative ">
                       <Link
                         href="/contact"
                         className={`
-                          text-sm tracking-wider font-medium px-4 lg:px-0 uppercase
+                          text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
                           transition-all duration-300 pb-1 block
                           ${
                             isActive("/contact")

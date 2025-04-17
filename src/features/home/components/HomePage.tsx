@@ -17,7 +17,7 @@ export const HomePage = () => {
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4 md:p-8">
+    <div className="w-full max-w-7xl mx-auto md:p-8">
       {/* Hero Slider */}
       <div className="mb-12">
         <Carousel 
