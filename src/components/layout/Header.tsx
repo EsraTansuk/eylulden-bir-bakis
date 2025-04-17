@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { DropdownHeader } from "./components/DropdownHeader";
+import { SideMenu } from "./components/sideMenu/SideMenu";
 
 export const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
@@ -68,11 +69,14 @@ export const Header = () => {
       {/* Sabit header için boşluk */}
       <div className="h-16 lg:h-32"></div>
 
-      <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      {/* Mobil Kenar Menüsü */}
+      <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
+
+      <header className="fixed top-0 left-0 w-full bg-white shadow-md z-40">
         {/* Üst Bar - Logo Alanı */}
         {/* Logo Alanı - Scroll ile kayar */}
         <div
-          className={`w-full bg-white border-b border-gray-100 ${
+          className={`w-full bg-white border-b border-gray-100 lg:block hidden ${
             isScrolled ? "hidden" : ""
           }`}
         >
@@ -87,26 +91,28 @@ export const Header = () => {
 
         {/* Ana Navigasyon */}
         <nav className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 flex justify-center items-center">
+          <div className="flex justify-start ms-4">
+            <button
+              className="lg:hidden p-4 focus:outline-none"
+              onClick={() => setIsSideMenuOpen(true)}
+            >
+              <div className="space-y-2">
+                <span className="block w-6 h-0.5 bg-gray-600"></span>
+                <span className="block w-6 h-0.5 bg-gray-600"></span>
+                <span className="block w-6 h-0.5 bg-gray-600"></span>
+              </div>
+            </button>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 hidden justify-center items-center lg:flex">
             <div className="flex justify-between items-center">
-              {/* Mobil Menü Butonu */}
-              <button
-                className="lg:hidden p-4 focus:outline-none"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <div className="space-y-2">
-                  <span className="block w-6 h-0.5 bg-gray-600"></span>
-                  <span className="block w-6 h-0.5 bg-gray-600"></span>
-                  <span className="block w-6 h-0.5 bg-gray-600"></span>
-                </div>
-              </button>
+              
 
               {/* Menü Öğeleri */}
               <div ref={dropdownRef} className="relative w-full lg:w-auto ">
                 <ul
                   className={`
                   lg:flex lg:items-center lg:justify-center lg:space-x-8 w-full py-4
-                  ${isMenuOpen ? "block" : "hidden lg:flex"}
+                  hidden lg:flex
                   absolute lg:relative left-0 top-full lg:top-auto
                   bg-white lg:bg-transparent
                   shadow-lg lg:shadow-none
