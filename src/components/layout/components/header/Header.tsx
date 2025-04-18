@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { DropdownHeader } from "./components/DropdownHeader";
-import { SideMenu } from "./components/sideMenu/SideMenu";
+import { DropdownHeader } from "./DropdownHeader";
+import { SideMenu } from "../sideMenu/SideMenu";
 
 export const Header = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);

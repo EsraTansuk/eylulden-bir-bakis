@@ -1,6 +1,6 @@
 :root {
   /* Ana Renkler */
-  --primary-color: #6eb48c;
+  --primary-color: #A47DAB;
   --secondary-color: #D4A5CB;
   --background-color: #FFFFFF;
 
@@ -10,20 +10,20 @@
   --medium-gray: #EEEEEE;
 
   /* Vurgu Renkleri */
-  --accent-primary: #5a9472; /* Primary renginin daha koyu tonu (hover için) */
+  --accent-primary: #8a67a0; /* Primary renginin daha koyu tonu (hover için) */
   --accent-success: #85B79D;
   --accent-warning: #E6C4C0;
   
   /* Hover/Active/Focus Durumları */
-  --primary-hover: #5a9472; /* Primary renginin daha koyu tonu */
-  --primary-active: #4e8162; /* Primary renginin en koyu tonu */
+  --primary-hover: #8a67a0; /* Primary renginin daha koyu tonu */
+  --primary-active: #755788; /* Primary renginin en koyu tonu */
 
   /* Gölgeler */
   --shadow-light: rgba(0, 0, 0, 0.05);
   --shadow-medium: rgba(0, 0, 0, 0.1);
 
   /* Saydamlık Varyasyonları */
-  --primary-transparent: rgba(110, 180, 140, 0.9);
+  --primary-transparent: rgba(164, 125, 171, 0.9);
   --secondary-transparent: rgba(212, 165, 203, 0.9);
 
   /* Metin Renk Varyasyonları */

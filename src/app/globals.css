@@ -59,7 +59,7 @@ body {
   --font-text: "Inter", sans-serif;
 
   /* Ana Renkler */
-  --color-primary: var(--primary-color, #6eb48c);
+  --color-primary: var(--primary-color, #A47DAB);
   --color-secondary: var(--secondary-color, #d4a5cb);
   --color-background: var(--background-color, #ffffff);
 
@@ -74,18 +74,18 @@ body {
   --color-medium: var(--medium-gray, #eeeeee);
 
   /* Vurgu Renkleri */
-  --color-accent-primary: var(--accent-primary, #5a9472);
+  --color-accent-primary: var(--accent-primary, #8a67a0);
   --color-accent-success: var(--accent-success, #85b79d);
   --color-accent-warning: var(--accent-warning, #e6c4c0);
 
   /* Hover/Active/Focus Durumları */
-  --color-primary-hover: var(--primary-hover, #5a9472);
-  --color-primary-active: var(--primary-active, #4e8162);
+  --color-primary-hover: var(--primary-hover, #8a67a0);
+  --color-primary-active: var(--primary-active, #755788);
 
   /* Saydamlık Varyasyonları */
   --color-transparent-primary: var(
     --primary-transparent,
-    rgba(110, 180, 140, 0.9)
+    rgba(164, 125, 171, 0.9)
   );
   --color-transparent-secondary: var(
     --secondary-transparent,
@@ -101,21 +101,21 @@ body {
   --color-border-light: var(--border-light, #f9f9f9);
 
   /* Link Renkleri */
-  --color-link: var(--link-color, #6eb48c);
-  --color-link-hover: var(--link-hover, #5a9472);
+  --color-link: var(--link-color, #A47DAB);
+  --color-link-hover: var(--link-hover, #8a67a0);
 
   /* Özel Renkler */
   --color-dot-bg: var(--dot-bg-color, #343035);
-  --color-cindoruk: var(--primary-color, #6eb48c);
+  --color-cindoruk: var(--primary-color, #A47DAB);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary-color: #7bc59a;
-    --accent-primary: #5a9472;
-    --primary-hover: #5a9472;
-    --primary-active: #4e8162;
+    --primary-color: #b38bba;
+    --accent-primary: #8a67a0;
+    --primary-hover: #8a67a0;
+    --primary-active: #755788;
   }
 }

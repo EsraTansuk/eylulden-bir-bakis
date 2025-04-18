@@ -1,2 +1,3 @@
-export * from "./DropdownHeader";
-export * from "./styles";
+export * from "./header"
+export * from "./sideMenu"
+export * from "./styles"
