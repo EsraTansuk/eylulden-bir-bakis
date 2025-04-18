@@ -67,7 +67,7 @@ export const Header = () => {
   return (
     <>
       {/* Sabit header için boşluk */}
-      <div className="h-16 lg:h-32"></div>
+      <div className="h-16 lg:h-38"></div>
 
       {/* Mobil Kenar Menüsü */}
       <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
