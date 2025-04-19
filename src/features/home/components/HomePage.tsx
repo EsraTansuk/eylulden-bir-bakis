@@ -1,7 +1,8 @@
-'use client'
+"use client";
 
 import { Carousel } from "@/components";
 import { BlogPage } from "@/features/blog/components/BlogPage";
+import { StickySideMenu } from "./stickySideMenu";
 
 export const HomePage = () => {
   // Slider için örnek görseller
@@ -14,22 +15,26 @@ export const HomePage = () => {
     "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
     "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
     "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-    
   ];
 
   return (
     <div className="w-full max-w-7xl mx-auto md:p-8">
       {/* Hero Slider */}
       <div className="mb-12">
-        <Carousel 
+        <Carousel
           images={sliderImages}
-          height="h-[400px] md:h-[600px]" 
+          height="h-[400px] md:h-[600px]"
           autoPlayInterval={6000}
-          
         />
       </div>
-      
-      <BlogPage />
+      <div className="flex flex-col lg:flex-row gap-12">
+        <div className="w-full lg:w-4/6">
+          <BlogPage />
+        </div>
+        <div className="w-full lg:w-2/6">
+          <StickySideMenu />
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
