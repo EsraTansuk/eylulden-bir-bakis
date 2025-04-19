@@ -1,6 +1,12 @@
 import { SocialMedia } from "@/components/socialMedia";
 import React from "react";
-import { FaTwitter, FaInstagram, FaFacebook, FaLinkedin, FaYoutube, FaPinterest, FaEnvelope } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaYoutube,
+  FaPinterest,
+  FaEnvelope,
+  FaTiktok,
+} from "react-icons/fa";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -23,14 +29,6 @@ export const Footer = () => {
         <div className="flex justify-center mb-10">
           <div className="py-3 flex justify-center items-center gap-6 text-2xl">
             <SocialMedia
-              href="https://www.facebook.com/"
-              icon={<FaFacebook />}
-              iconName="Facebook"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
               href="https://www.instagram.com/"
               icon={<FaInstagram />}
               iconName="Instagram"
@@ -39,25 +37,9 @@ export const Footer = () => {
             />
 
             <SocialMedia
-              href="https://www.twitter.com/"
-              icon={<FaTwitter />}
-              iconName="Twitter"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
               href="https://www.pinterest.com/"
               icon={<FaPinterest />}
               iconName="Pinterest"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
-              href="https://www.linkedin.com/"
-              icon={<FaLinkedin />}
-              iconName="Linkedin"
               iconClassName="text-white hover:text-primary transition-colors"
               allClassName="flex items-center gap-2"
             />
@@ -74,6 +56,14 @@ export const Footer = () => {
               href="mailto:info@eyluldenbirbakis.com"
               icon={<FaEnvelope />}
               iconName="Email"
+              iconClassName="text-white hover:text-primary transition-colors"
+              allClassName="flex items-center gap-2"
+            />
+
+            <SocialMedia
+              href="https://www.tiktok.com/"
+              icon={<FaTiktok />}
+              iconName="TikTok"
               iconClassName="text-white hover:text-primary transition-colors"
               allClassName="flex items-center gap-2"
             />

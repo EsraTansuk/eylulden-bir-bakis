@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SocialMedia } from "@/components/socialMedia";
-import { FaFacebook, FaTwitter, FaPinterest, FaInstagram, FaLinkedin, FaYoutube, FaEnvelope } from "react-icons/fa";
+import {  FaPinterest, FaInstagram,  FaYoutube, FaEnvelope, FaTiktok } from "react-icons/fa";
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -116,13 +116,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
             </div>
             {/* Paylaşım butonları */}
             <div className="py-3 flex justify-center items-center gap-4">
-              <SocialMedia 
-                href="https://www.facebook.com/"
-                icon={<FaFacebook />}
-                iconName="Facebook"
-                iconClassName="text-gray-500 hover:text-primary transition-colors"
-                allClassName="flex items-center gap-2"
-              />
+              
 
               <SocialMedia
               href="https://www.instagram.com/"
@@ -132,26 +126,12 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
               allClassName="flex items-center gap-2"
               />
               
-              <SocialMedia
-              href="https://www.twitter.com/"
-              icon={<FaTwitter />}
-              iconName="Twitter"
-              iconClassName="text-gray-500 hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-              />
+             
 
               <SocialMedia
               href="https://www.pinterest.com/"
               icon={<FaPinterest />}
               iconName="Pinterest"
-              iconClassName="text-gray-500 hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-              />
-
-              <SocialMedia
-              href="https://www.linkedin.com/"
-              icon={<FaLinkedin />}
-              iconName="Linkedin"
               iconClassName="text-gray-500 hover:text-primary transition-colors"
               allClassName="flex items-center gap-2"
               />
@@ -168,6 +148,14 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
               href="mailto:info@eyluldenbirbakis.com"
               icon={<FaEnvelope />}
               iconName="Email"
+              iconClassName="text-gray-500 hover:text-primary transition-colors"
+              allClassName="flex items-center gap-2"
+              />
+
+              <SocialMedia
+              href="https://www.tiktok.com/"
+              icon={<FaTiktok />}
+              iconName="TikTok"
               iconClassName="text-gray-500 hover:text-primary transition-colors"
               allClassName="flex items-center gap-2"
               />

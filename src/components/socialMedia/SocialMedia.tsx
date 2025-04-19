@@ -12,6 +12,7 @@ interface SocialMediaProps {
   iconClassName?: string;
   allClassName?: string;
   email?: string;
+  children?: React.ReactNode;
 }
 
 export const SocialMedia: React.FC<SocialMediaProps> = ({
@@ -24,6 +25,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   iconClassName,
   allClassName,
   email,
+  children,
 }) => {
   return (
     <div className={allClassName}>
@@ -34,10 +36,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
         rel={rel}
         className={iconClassName}
         aria-label={ariaLabel}
-
       >
         {icon}
-        <span className="sr-only">{iconName}</span>
+        {children || <span className="sr-only">{iconName}</span>}
       </Link>
     </div>
   );
