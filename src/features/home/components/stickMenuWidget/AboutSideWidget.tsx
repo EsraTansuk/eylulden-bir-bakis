@@ -11,7 +11,7 @@ interface AboutSideWidgetProps {
 
 export const AboutSideWidget: React.FC<AboutSideWidgetProps> = ({
   className = '',
-  title = 'HAKKIMDA',
+  title = 'Hakkımda',
   subtitle = 'Merhaba, Ben Eylül',
   description = 'Anılarımı canlı tutmak için çok fotoğraf çekiyorum. Yazmayı, çizmeyi ve fotoğrafçılığı seviyorum.',
   imageSrc = 'https://soledad.pencidesign.net/wp-content/uploads/2015/10/about-me-wid.jpg',

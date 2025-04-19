@@ -45,9 +45,9 @@ module.exports = {
         // Metin renkleri
         text: {
           DEFAULT: "var(--color-text)",
-          light: "var(--color-text-light)",
-          lighter: "var(--color-text-lighter)",
-          white: "var(--color-text-white)",
+          lightColor: "var(--color-text-light)",
+          lighterColor: "var(--color-text-lighter)",
+          whiteColor: "var(--color-text-white)",
         },
         
         // Kenarlık renkleri
