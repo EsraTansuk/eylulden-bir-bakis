@@ -70,17 +70,20 @@ export const Header = () => {
       <div className="h-16 lg:h-38"></div>
 
       {/* Mobil Kenar Menüsü */}
-      <SideMenu isOpen={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} />
+      <SideMenu
+        isOpen={isSideMenuOpen}
+        onClose={() => setIsSideMenuOpen(false)}
+      />
 
       <header className="fixed top-0 left-0 w-full bg-white shadow-md z-40">
         {/* Üst Bar - Logo Alanı */}
         {/* Logo Alanı - Scroll ile kayar */}
         <div
-          className={`w-full bg-white border-b border-gray-100 lg:block hidden ${
-            isScrolled ? "hidden" : ""
+          className={`w-full bg-white border-b border-gray-100 lg:block hidden transition-all duration-300 ${
+            isScrolled ? "h-0 overflow-hidden opacity-0 py-0" : "h-auto opacity-100 py-3"
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 py-3 flex justify-center items-center">
+          <div className="max-w-7xl mx-auto px-4 flex justify-center items-center">
             <Link href="/">
               <h1 className="text-3xl lg:text-5xl font-charmonman font-bold text-textColor text-center py-2 hover:text-primaryState-hover transition-colors duration-300 tracking-wide">
                 eylülden bir bakış
@@ -91,22 +94,35 @@ export const Header = () => {
 
         {/* Ana Navigasyon */}
         <nav className="bg-white shadow-sm">
-          <div className="flex justify-start ms-4">
-            <button
-              className="lg:hidden p-4 focus:outline-none"
-              onClick={() => setIsSideMenuOpen(true)}
-            >
-              <div className="space-y-2">
-                <span className="block w-6 h-0.5 bg-gray-600"></span>
-                <span className="block w-6 h-0.5 bg-gray-600"></span>
-                <span className="block w-6 h-0.5 bg-gray-600"></span>
-              </div>
-            </button>
+          <div className="flex justify-between items-center px-4 lg:px-0">
+            <div className="lg:hidden">
+              <button
+                className="p-4 focus:outline-none"
+                onClick={() => setIsSideMenuOpen(true)}
+              >
+                <div className="space-y-2">
+                  <span className="block w-6 h-0.5 bg-gray-600"></span>
+                  <span className="block w-6 h-0.5 bg-gray-600"></span>
+                  <span className="block w-6 h-0.5 bg-gray-600"></span>
+                </div>
+              </button>
+            </div>
+            
+            {/* Mobile Logo (Görünür olacak) */}
+            <div className="lg:hidden">
+              <Link href="/">
+                <h1 className="text-2xl font-charmonman font-bold text-textColor text-center hover:text-primaryState-hover transition-colors duration-300 tracking-wide">
+                  eylülden bir bakış
+                </h1>
+              </Link>
+            </div>
+            
+            {/* Sağ taraf doldurma */}
+            <div className="lg:hidden w-10"></div>
           </div>
+          
           <div className="max-w-7xl mx-auto px-4 hidden justify-center items-center lg:flex">
             <div className="flex justify-between items-center">
-              
-
               {/* Menü Öğeleri */}
               <div ref={dropdownRef} className="relative w-full lg:w-auto ">
                 <ul
