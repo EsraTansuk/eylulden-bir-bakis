@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 interface InstagramWidgetProps {
   className?: string;
@@ -79,12 +78,10 @@ export const InstagramWidget: React.FC<InstagramWidgetProps> = ({
                 rel="noopener noreferrer"
                 className="block w-full h-full"
               >
-                <Image
+                <img
                   src={image.imageUrl}
                   alt="Instagram Image"
-                  fill
-                  sizes="(max-width: 640px) 33vw, (max-width: 768px) 20vw, 10vw"
-                  className="object-cover hover:opacity-90 transition-opacity"
+                  className="w-full h-full object-cover hover:opacity-90 transition-opacity"
                 />
               </a>
             </div>
