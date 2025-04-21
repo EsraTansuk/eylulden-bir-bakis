@@ -47,47 +47,7 @@ export const AboutSideWidget: React.FC<AboutSideWidgetProps> = ({
           <p>{description}</p>
         </div>
 
-        <div className="flex justify-center gap-4 mt-4">
-          <SocialMedia
-            href="https://www.facebook.com/"
-            icon={<FaFacebook />}
-            iconName="Facebook"
-            iconClassName="text-gray-500 hover:text-primary transition-colors"
-            allClassName="flex items-center"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-
-          <SocialMedia
-            href="https://www.instagram.com/"
-            icon={<FaInstagram />}
-            iconName="Instagram"
-            iconClassName="text-gray-500 hover:text-primary transition-colors"
-            allClassName="flex items-center"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-
-          <SocialMedia
-            href="https://www.twitter.com/"
-            icon={<FaTwitter />}
-            iconName="Twitter"
-            iconClassName="text-gray-500 hover:text-primary transition-colors"
-            allClassName="flex items-center"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-
-          <SocialMedia
-            href="https://www.pinterest.com/"
-            icon={<FaPinterest />}
-            iconName="Pinterest"
-            iconClassName="text-gray-500 hover:text-primary transition-colors"
-            allClassName="flex items-center"
-            target="_blank"
-            rel="noopener noreferrer"
-          />
-        </div>
+       
       </div>
     </div>
   );
