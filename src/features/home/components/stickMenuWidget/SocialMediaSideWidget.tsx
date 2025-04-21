@@ -32,7 +32,7 @@ export const SocialMediaSideWidget: React.FC<SocialMediaSideWidgetProps> = ({
           href="https://www.instagram.com/"
           icon={<FaInstagram className="text-xl" />}
           iconName="Instagram"
-          iconClassName=" border-2 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-12 h-12"
+          iconClassName="border-2 text-gray-600 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-10 h-10"
           allClassName="w-full"
           target="_blank"
           rel="noopener noreferrer"
@@ -42,7 +42,7 @@ export const SocialMediaSideWidget: React.FC<SocialMediaSideWidgetProps> = ({
           href="https://www.youtube.com/"
           icon={<FaYoutube className="text-xl" />}
           iconName="Youtube"
-          iconClassName=" border-2 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-12 h-12"
+          iconClassName=" border-2 text-gray-600 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-10 h-10"
           allClassName="w-full"
           target="_blank"
           rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export const SocialMediaSideWidget: React.FC<SocialMediaSideWidgetProps> = ({
           href="https://www.tiktok.com/"
           icon={<FaTiktok className="text-xl" />}
           iconName="Tiktok"
-          iconClassName=" border-2 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-12 h-12"
+          iconClassName=" border-2 text-gray-600 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-10 h-10"
           allClassName="w-full"
           target="_blank"
           rel="noopener noreferrer"
@@ -60,7 +60,7 @@ export const SocialMediaSideWidget: React.FC<SocialMediaSideWidgetProps> = ({
           href="https://www.pinterest.com/"
           icon={<FaPinterest className="text-xl" />}
           iconName="Pinterest"
-          iconClassName=" border-2 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-12 h-12"
+          iconClassName=" border-2 text-gray-600 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-10 h-10"
           allClassName="w-full"
           target="_blank"
           rel="noopener noreferrer"
