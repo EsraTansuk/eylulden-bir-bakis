@@ -105,7 +105,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
         <nav className="p-4">
           <div className="flex flex-col justify-center items-center mb-4">
-            <Link href="/" className="mb-4">
+            <Link href="/" className="mx-4">
               <h1 className="text-2xl font-charmonman font-bold text-textColor">
                 eylülden bir bakış
               </h1>
