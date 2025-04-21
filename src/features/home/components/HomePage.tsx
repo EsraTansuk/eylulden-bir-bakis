@@ -21,7 +21,7 @@ export const HomePage = () => {
   return (
     <div className="w-full  mx-auto md:p-8">
       {/* Hero Slider */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto pb-12">
         <div className="mb-12">
           <Carousel
             images={sliderImages}
