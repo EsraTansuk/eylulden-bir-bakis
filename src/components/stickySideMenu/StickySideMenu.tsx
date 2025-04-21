@@ -1,5 +1,10 @@
-import React from 'react'
-import { AboutSideWidget, SocialMediaSideWidget, InstagramWidget, PopularPostsWidget } from '../stickMenuWidget'
+import React from "react";
+import {
+  AboutSideWidget,
+  SocialMediaSideWidget,
+  InstagramWidget,
+  PopularPostsWidget,
+} from "./components"
 
 export const StickySideMenu = () => {
   return (
@@ -9,5 +14,5 @@ export const StickySideMenu = () => {
       <PopularPostsWidget />
       <InstagramWidget />
     </div>
-  )
-}
+  );
+};

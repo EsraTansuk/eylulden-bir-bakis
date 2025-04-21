@@ -1,8 +1,7 @@
 "use client";
 
-import { Carousel } from "@/components";
-import { BlogPage } from "@/features/blog/components/BlogPage";
-import { StickySideMenu } from "./stickySideMenu";
+import { Carousel, StickySideMenu } from "@/components";
+import { ArticleList } from "@/features/article/components/ArticleList";
 import { BottomMenu } from "./bottomMenu/BottomMenu";
 
 export const HomePage = () => {
@@ -31,7 +30,7 @@ export const HomePage = () => {
         </div>
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="w-full lg:w-4/6">
-            <BlogPage />
+            <ArticleList />
           </div>
           <div className="w-full lg:w-2/6">
             <StickySideMenu />

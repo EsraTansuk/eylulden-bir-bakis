@@ -110,7 +110,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     <article className="item rounded-md overflow-hidden shadow-md bg-white mb-8 hover:shadow-lg transition-shadow duration-300">
       {/* Görsel alanı */}
       <div className="thumbnail relative">
-        <Link href={`/post/${slug}`} className="block relative overflow-hidden pb-[65%]">
+        <Link href={`/article/${slug}`} className="block relative overflow-hidden pb-[65%]">
           <Image 
             src={thumbnailUrl} 
             alt={title}
@@ -122,7 +122,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         
         {/* Post format icon */}
         {postFormat !== 'standard' && (
-          <Link href={`/post/${slug}`} className="icon-post-format absolute top-4 right-4 z-10 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
+          <Link href={`/article/${slug}`} className="icon-post-format absolute top-4 right-4 z-10 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
             {renderPostFormatIcon()}
           </Link>
         )}
@@ -147,7 +147,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
         {/* Başlık */}
         <h2 className=" font-mainTitle text-xl md:text-2xl font-bold mb-3">
-          <Link href={`/post/${slug}`} className="hover:text-primary transition-colors duration-300 font-mainTitle">
+          <Link href={`/article/${slug}`} className="hover:text-primary transition-colors duration-300 font-mainTitle">
             {title}
           </Link>
         </h2>
@@ -187,28 +187,28 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           </button>
           
           {/* Sosyal medya paylaşım butonları */}
-          <Link href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://yoursite.com/post/${slug}`)}`} 
+          <Link href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://yoursite.com/article/${slug}`)}`} 
             target="_blank" rel="noreferrer" 
             className="post-share-item flex items-center text-text-light hover:text-primary">
             <FacebookIcon />
             <span className="sr-only">Facebook</span>
           </Link>
           
-          <Link href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://yoursite.com/post/${slug}`)}`} 
+          <Link href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://yoursite.com/article/${slug}`)}`} 
             target="_blank" rel="noreferrer"
             className="post-share-item flex items-center text-text-light hover:text-primary">
             <TwitterIcon />
             <span className="sr-only">Twitter</span>
           </Link>
           
-          <Link href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`https://yoursite.com/post/${slug}`)}&media=${encodeURIComponent(thumbnailUrl)}&description=${encodeURIComponent(title)}`} 
+          <Link href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`https://yoursite.com/article/${slug}`)}&media=${encodeURIComponent(thumbnailUrl)}&description=${encodeURIComponent(title)}`} 
             target="_blank" rel="noreferrer"
             className="post-share-item flex items-center text-text-light hover:text-primary">
             <PinterestIcon />
             <span className="sr-only">Pinterest</span>
           </Link>
           
-          <Link href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`https://yoursite.com/post/${slug}`)}`}
+          <Link href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`https://yoursite.com/article/${slug}`)}`}
             className="post-share-item flex items-center text-text-light hover:text-primary">
             <EmailIcon />
             <span className="sr-only">Email</span>

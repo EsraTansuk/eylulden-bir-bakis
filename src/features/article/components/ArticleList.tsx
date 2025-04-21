@@ -2,7 +2,7 @@
 
 import { ArticleCard } from "@/components/articleCard";
 
-export const BlogPage = () => {
+export const ArticleList = () => {
   // Örnek veri
   const article = {
     title: "Bucket Listesindeki Maceralar",

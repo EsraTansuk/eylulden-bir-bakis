@@ -39,8 +39,6 @@ export const AboutSideWidget: React.FC<AboutSideWidgetProps> = ({
         <div className="text-sm text-gray-600 mb-6">
           <p>{description}</p>
         </div>
-
-       
       </div>
     </div>
   );
