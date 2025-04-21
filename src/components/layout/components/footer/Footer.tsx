@@ -13,7 +13,7 @@ export const Footer = () => {
 
   return (
     <footer
-      className="pt-16 pb-8 mt-12 border-t border-gray-200 relative text-white"
+      className="pt-16 pb-8 border-t border-gray-200 relative text-white"
       style={{
         backgroundImage:
           'url("https://soledad.pencidesign.net/wp-content/uploads/2017/06/mountain.jpg")',
