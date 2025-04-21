@@ -1,11 +1,4 @@
 import React from "react";
-import { SocialMedia } from "@/components/socialMedia";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaPinterest,
-  FaInstagram,
-} from "react-icons/fa";
 
 interface AboutSideWidgetProps {
   className?: string;
