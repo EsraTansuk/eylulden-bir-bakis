@@ -5,12 +5,12 @@ export const MyStory = () => {
   return (
     <div className="footer-widget-wrapper footer-widget-style-1">
       <div className="widget">
-        <h4 className="widget-title penci-border-arrow">
-          <span className="inner-arrow text-xl font-categoryTitle font-semibold">
+        <h4 className="widget-title penci-border-arrow border-b-2 border-gray-200 pb-2">
+          <span className="inner-arrow text-xl font-categoryTitle font-semibold ">
             My Story
           </span>
         </h4>
-        <div className="textwidget">
+        <div className="mt-4">
           <p>
             <img
               src="https://soledad.pencidesign.net/wp-content/uploads/2015/10/about-footer.jpg"
