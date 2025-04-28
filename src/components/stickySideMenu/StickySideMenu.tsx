@@ -8,7 +8,7 @@ import {
 
 export const StickySideMenu = () => {
   return (
-    <div className="top-24 left-0 w-full space-y-8">
+    <div className="top-24 left-0 w-full space-y-8 px-8 lg:px-0">
       <AboutSideWidget />
       <SocialMediaSideWidget />
       <PopularPostsWidget />

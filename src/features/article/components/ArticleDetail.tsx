@@ -42,36 +42,41 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ slug }) => {
 
   return (
     <article className="bg-white  overflow-hidden">
-      <h1 className="text-3xl md:text-4xl font-bold mb-4 font-mainTitle">
-        {article.title}
-      </h1>
-      <div className="mb-4">
-        {article.categories.map((category, index) => (
-          <React.Fragment key={category.slug}>
+      <div className="flex flex-col justify-center items-center">
+        <div className="mb-4">
+          {article.categories.map((category, index) => (
+            <React.Fragment key={category.slug}>
+              <Link
+                href={`/category/${category.slug}`}
+                className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
+              >
+                {category.name}
+              </Link>
+              {index < article.categories.length - 1 && ", "}
+            </React.Fragment>
+          ))}
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 font-mainTitle text-center">
+          {article.title}
+        </h1>
+
+        <div className="text-gray-600 text-sm mb-6 flex items-center gap-3">
+          <span>
+            Yazar:
             <Link
-              href={`/category/${category.slug}`}
-              className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
+              href={`/author/${article.author.slug}`}
+              className="ml-1 text-primary hover:underline"
             >
-              {category.name}
+              {article.author.name}
             </Link>
-            {index < article.categories.length - 1 && ", "}
-          </React.Fragment>
-        ))}
+          </span>
+          <span>|</span>
+          <span>{formatDate(article.date)}</span>
+        </div>
       </div>
 
-      <div className="text-gray-600 text-sm mb-6 flex items-center gap-3">
-        <span>
-          Yazar:
-          <Link
-            href={`/author/${article.author.slug}`}
-            className="ml-1 text-primary hover:underline"
-          >
-            {article.author.name}
-          </Link>
-        </span>
-        <span>|</span>
-        <span>{formatDate(article.date)}</span>
-      </div>
+      <div className="border-t border-gray-200 w-full mx-auto mb-8"></div>
+
       <div className="relative w-full h-96">
         <img
           src={article.thumbnailUrl}
@@ -80,9 +85,9 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ slug }) => {
         />
       </div>
 
-      <div className="p-6">
+      <div className="py-6">
         <div
-          className="prose max-w-none"
+          className="prose max-w-none text-gray-700"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
       </div>

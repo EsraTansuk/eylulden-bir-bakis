@@ -9,9 +9,9 @@ interface ArticleDetailPageProps {
 
 export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ slug }) => {
   return (
-    <div className="w-full mx-auto md:p-8">
+    <div className="w-full mx-auto md:p-8 py-8">
       <div className="max-w-7xl mx-auto pb-12">
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-12 px-4 lg:px-0">
           <div className="w-full lg:w-4/6">
             <ArticleDetail slug={slug} />
           </div>

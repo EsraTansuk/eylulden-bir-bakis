@@ -157,7 +157,7 @@ export const Header = () => {
                   {/* Dropdown menüler */}
 
                   <DropdownHeader
-                    title="Raportaj"
+                    title="Röportaj"
                     menuKey="reportage"
                     items={dropdownMenus.reportage}
                     isActive={isActive}

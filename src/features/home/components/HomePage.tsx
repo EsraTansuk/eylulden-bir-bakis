@@ -28,7 +28,7 @@ export const HomePage = () => {
             autoPlayInterval={6000}
           />
         </div>
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-12 px-6 lg:px-0">
           <div className="w-full lg:w-4/6">
             <ArticleList />
           </div>
