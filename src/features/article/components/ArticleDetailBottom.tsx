@@ -5,7 +5,7 @@ import { FaComment, FaHeart, FaFacebook, FaTwitter, FaPinterest, FaEnvelope  } f
 export const ArticleDetailBottom = () => {
   return (
     <div className="border-t border-b border-gray-100 py-4 w-full">
-      <div className="flex justify-between items-center mx-12">
+      <div className="flex justify-between items-center mx-2">
         {/* Yorumlar */}
         <button className="flex items-center text-text-light hover:text-primary">
           <FaComment />
