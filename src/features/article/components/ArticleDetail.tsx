@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ArticleDetailBottom } from "./ArticleDetailBottom";
 
 interface ArticleDetailProps {
   slug: string;
@@ -91,6 +92,8 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ slug }) => {
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
       </div>
+      <ArticleDetailBottom />
     </article>
+
   );
 };
