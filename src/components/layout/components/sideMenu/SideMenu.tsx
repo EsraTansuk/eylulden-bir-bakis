@@ -384,9 +384,9 @@ export const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
             <li>
               <Link
-                href="/about"
+                href="/about-me"
                 className={`block py-2 px-3 rounded-md ${
-                  isActive("/about")
+                  isActive("/about-me")
                     ? "text-primary font-bold bg-gray-100"
                     : "text-gray-700 hover:bg-gray-50"
                 }`}

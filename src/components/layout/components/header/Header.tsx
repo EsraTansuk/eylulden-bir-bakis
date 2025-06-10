@@ -191,12 +191,12 @@ export const Header = () => {
                   <li className="block lg:inline-block py-2 lg:py-0 font-bold">
                     <div className="relative">
                       <Link
-                        href="/about"
+                        href="/about-me"
                         className={`
                           text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
                           transition-all duration-300 pb-1 block
                           ${
-                            isActive("/about")
+                            isActive("/about-me")
                               ? "text-primary nav-item active"
                               : "text-gray-700 hover:text-primary nav-item"
                           }
