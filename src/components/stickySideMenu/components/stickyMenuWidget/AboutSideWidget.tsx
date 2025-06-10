@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 interface AboutSideWidgetProps {
   className?: string;
@@ -38,6 +39,12 @@ export const AboutSideWidget: React.FC<AboutSideWidgetProps> = ({
 
         <div className="text-sm text-gray-600 mb-6">
           <p>{description}</p>
+          <Link
+            href="/about-me"
+            className="text-primary hover:underline font-semibold block mt-3"
+          >
+            Devamını oku
+          </Link>
         </div>
       </div>
     </div>
