@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { StickyMenuTitle } from "../stickyMenuTitle";
 
 interface PopularPostsWidgetProps {
   className?: string;
@@ -57,11 +58,7 @@ export const PopularPostsWidget: React.FC<PopularPostsWidgetProps> = ({
   return (
     <div className={`widget popular-posts-widget ${className}`}>
       <div className="mb-6">
-        <h3 className="border-1 px-2 py-1 border-l-10 border-l-primary">
-          <span className="text-xl font-categoryTitle font-semibold pb-2">
-            {title}
-          </span>
-        </h3>
+        <StickyMenuTitle title={title} />
       </div>
 
       <div className="popular-posts">
