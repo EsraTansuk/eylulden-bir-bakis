@@ -1,3 +1,4 @@
+import { WidgetTitle } from "@/components/widgetTitle";
 import React from "react";
 
 export const OnPinterest = () => {
@@ -17,9 +18,7 @@ export const OnPinterest = () => {
   return (
     <div className="footer-widget-wrapper footer-widget-style-1">
       <div className="widget">
-        <h4 className="widget-title penci-border-arrow border-b-2 border-gray-200 pb-2">
-          <span className="inner-arrow text-xl font-categoryTitle font-semibold">Pinterest&apos;te Ben</span>
-        </h4>
+        <WidgetTitle title="Pinterest&apos;te Ben" />
         <div className="grid grid-cols-3 gap-1 mt-4">
           {pinterestImages.map((image, index) => (
             <div key={index} className="aspect-square relative overflow-hidden">
