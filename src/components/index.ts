@@ -4,5 +4,6 @@ export * from './socialMedia'
 export * from './stickySideMenu'
 export * from "./articleCard"
 export * from "./pageContent"
+export * from "./widgetTitle"
 
 
