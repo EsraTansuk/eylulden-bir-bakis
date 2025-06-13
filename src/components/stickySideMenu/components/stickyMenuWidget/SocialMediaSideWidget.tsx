@@ -6,6 +6,7 @@ import {
   FaTiktok,
   FaYoutube,
 } from "react-icons/fa";
+import { StickyMenuTitle } from "../stickyMenuTitle";
 
 interface SocialMediaSideWidgetProps {
   className?: string;
@@ -18,13 +19,7 @@ export const SocialMediaSideWidget: React.FC<SocialMediaSideWidgetProps> = ({
 }) => {
   return (
     <div className={`widget ${className}`}>
-      <div className="mb-6">
-        <h3 className="border-1 px-2 py-1 border-l-10 border-l-primary">
-          <span className="text-xl font-categoryTitle font-semibold pb-2">
-            {title}
-          </span>
-        </h3>
-      </div>
+      <StickyMenuTitle title={title} />
 
       <div className="flex flex-row gap-4 mx-12">
         
