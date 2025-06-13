@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { WidgetTitle } from "@/components/widgetTitle";
 
 export const RecentPost = () => {
   const recentPosts = [
@@ -29,9 +30,7 @@ export const RecentPost = () => {
   return (
     <div className="footer-widget-wrapper footer-widget-style-1">
       <div className="widget">
-        <h4 className="widget-title penci-border-arrow border-b-2 border-gray-200 pb-2">
-          <span className="inner-arrow text-xl font-categoryTitle font-semibold">Son Yazılar</span>
-        </h4>
+        <WidgetTitle title="Son Yazılar" />
         <div className="space-y-4 mt-4">
           {recentPosts.map((post) => (
             <div key={post.id} className="flex gap-3">
