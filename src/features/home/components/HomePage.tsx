@@ -1,8 +1,7 @@
 "use client";
 
-import { Carousel, StickySideMenu } from "@/components";
+import { Carousel, PageContent, StickySideMenu } from "@/components";
 import { ArticleList } from "@/features/article/components/ArticleList";
-import { BottomMenu } from "./bottomMenu/BottomMenu";
 
 export const HomePage = () => {
   // Slider için örnek görseller
@@ -18,9 +17,9 @@ export const HomePage = () => {
   ];
 
   return (
-    <div className="w-full  mx-auto md:p-8">
+    <>
       {/* Hero Slider */}
-      <div className="max-w-7xl mx-auto pb-12">
+      <PageContent>
         <div className="mb-12">
           <Carousel
             images={sliderImages}
@@ -36,8 +35,8 @@ export const HomePage = () => {
             <StickySideMenu />
           </div>
         </div>
-      </div>
-      <BottomMenu />
-    </div>
+      </PageContent>
+      
+    </>
   );
 };
