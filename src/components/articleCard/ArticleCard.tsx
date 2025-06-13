@@ -146,7 +146,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         </div>
 
         {/* Başlık */}
-        <h2 className=" font-mainTitle text-xl md:text-2xl font-bold mb-3">
+        <h2 className=" font-mainTitle text-xl md:text-2xl font-semibold mb-3">
           <Link href={`/article/${slug}`} className="hover:text-primary transition-colors duration-300 font-mainTitle">
             {title}
           </Link>
