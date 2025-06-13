@@ -3,7 +3,7 @@ import React from "react";
 
 export const AboutMe = () => {
   return (
-    <div className="max-w-7xl mx-auto md:p-8">
+    <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
       <div className=" flex flex-col lg:flex-row gap-12">
         <div className="w-full lg:w-4/6">
           <h2 className="text-2xl font-bold font-categoryTitle mb-6 text-center ">
