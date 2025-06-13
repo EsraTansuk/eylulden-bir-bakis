@@ -1,4 +1,5 @@
 import React from "react";
+import { StickyMenuTitle } from "../stickyMenuTitle";
 
 interface InstagramWidgetProps {
   className?: string;
@@ -61,11 +62,7 @@ export const InstagramWidget: React.FC<InstagramWidgetProps> = ({
   return (
     <div className={`widget instagram-widget ${className}`}>
       <div className="mb-6">
-        <h3 className="border-1 px-2 py-1 border-l-10 border-l-primary">
-          <span className="text-xl font-categoryTitle font-bold pb-2 ">
-            {title}
-          </span>
-        </h3>
+        <StickyMenuTitle title={title} />
       </div>
 
       <div className="jr-insta-thumb">
