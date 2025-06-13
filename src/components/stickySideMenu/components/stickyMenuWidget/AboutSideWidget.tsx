@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { StickyMenuTitle } from "../stickyMenuTitle";
 
 interface AboutSideWidgetProps {
   className?: string;
@@ -18,13 +19,7 @@ export const AboutSideWidget: React.FC<AboutSideWidgetProps> = ({
 }) => {
   return (
     <div className={`widget about-widget ${className}`}>
-      <div className="penci-border-arrow mb-6">
-        <h3 className="border-1 px-2 py-1 border-l-10 border-l-primary">
-          <span className="text-xl font-categoryTitle font-semibold pb-2">
-            {title}
-          </span>
-        </h3>
-      </div>
+      <StickyMenuTitle title={title} />
 
       <div className="about-widget text-center">
         <div className="relative w-full h-56 mb-4 overflow-hidden rounded">
