@@ -1,4 +1,5 @@
 import { StickySideMenu } from "@/components/stickySideMenu/StickySideMenu";
+import { Title } from "@/components/Title";
 import React from "react";
 
 export const AboutMe = () => {
@@ -6,9 +7,7 @@ export const AboutMe = () => {
     <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
       <div className=" flex flex-col lg:flex-row gap-12">
         <div className="w-full lg:w-4/6">
-          <h2 className="text-2xl font-bold font-categoryTitle mb-6 text-center ">
-            About Me
-          </h2>
+          <Title title="About Me" />
           <img
             src="https://soledad.pencidesign.net/wp-content/uploads/2015/10/about-footer.jpg"
             alt="About Me Fotoğrafı"
