@@ -89,7 +89,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   return (
     <div 
-      className={`relative w-full ${height} overflow-hidden rounded-xl shadow-md`}
+      className={`relative w-full ${height} overflow-hidden shadow-md`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       ref={slideRef}

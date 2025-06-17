@@ -19,7 +19,7 @@ export const CarouselSlide: React.FC<CarouselSlideProps> = ({ image, index, widt
         <Image
           src={image}
           alt={`Slayt ${index + 1}`}
-          className="object-cover rounded-lg"
+          className="object-cover "
           fill
           priority={index === 0}
         />

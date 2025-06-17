@@ -69,7 +69,7 @@ export const PopularPostsWidget: React.FC<PopularPostsWidgetProps> = ({
           >
             <div className="w-20 h-20 flex-shrink-0 mr-4 relative">
               <Link href={post.link}>
-                <div className="relative w-full h-full overflow-hidden rounded">
+                <div className="relative w-full h-full overflow-hidden ">
                   <img
                     src={post.image}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
