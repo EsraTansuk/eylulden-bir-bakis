@@ -1,6 +1,6 @@
 "use client";
 
-import { Carousel, PageContent, StickySideMenu } from "@/components";
+import { Carousel, PageContainer, StickySideMenu } from "@/components";
 import { ArticleList } from "@/features/article/components/ArticleList";
 
 export const HomePage = () => {
@@ -19,7 +19,7 @@ export const HomePage = () => {
   return (
     <>
       {/* Hero Slider */}
-      <PageContent>
+      <PageContainer>
         <div className="mb-12">
           <Carousel
             images={sliderImages}
@@ -35,7 +35,7 @@ export const HomePage = () => {
             <StickySideMenu />
           </div>
         </div>
-      </PageContent>
+      </PageContainer>
       
     </>
   );

@@ -78,7 +78,7 @@ export const DropdownHeader: React.FC<DropdownHeaderProps> = ({
 
       <div
         className={`
-        lg:absolute left-0 top-full w-48 bg-white shadow-lg rounded-md overflow-hidden
+        lg:absolute left-0 top-full w-48 bg-white shadow-lg overflow-hidden
         invisible opacity-0 transform translate-y-[-10px] 
         group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 
         transition-all duration-300 py-2 

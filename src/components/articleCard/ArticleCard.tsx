@@ -107,7 +107,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   };
 
   return (
-    <article className="item rounded-md overflow-hidden shadow-md bg-white mb-8 hover:shadow-lg transition-shadow duration-300">
+    <article className="item  overflow-hidden shadow-md bg-white mb-8 hover:shadow-lg transition-shadow duration-300">
       {/* Görsel alanı */}
       <div className="thumbnail relative">
         <Link href={`/article/${slug}`} className="block relative overflow-hidden pb-[65%]">
@@ -122,7 +122,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         
         {/* Post format icon */}
         {postFormat !== 'standard' && (
-          <Link href={`/article/${slug}`} className="icon-post-format absolute top-4 right-4 z-10 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center">
+          <Link href={`/article/${slug}`} className="icon-post-format absolute top-4 right-4 z-10 h-10 w-10  bg-primary text-white flex items-center justify-center">
             {renderPostFormatIcon()}
           </Link>
         )}

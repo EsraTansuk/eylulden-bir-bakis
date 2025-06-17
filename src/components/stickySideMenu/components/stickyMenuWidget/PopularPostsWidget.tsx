@@ -69,12 +69,12 @@ export const PopularPostsWidget: React.FC<PopularPostsWidgetProps> = ({
           >
             <div className="w-20 h-20 flex-shrink-0 mr-4 relative">
               <Link href={post.link}>
-                <div className="relative w-full h-full overflow-hidden rounded">
+                <div className="relative w-full h-full overflow-hidden ">
                   <img
                     src={post.image}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-0 left-0 w-6 h-6 flex items-center justify-center bg-primary text-white font-medium">
+                  <div className="absolute top-0 left-0 w-5 h-5 flex items-center justify-center bg-primary text-white text-sm">
                     {index + 1}
                   </div>
                 </div>

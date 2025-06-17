@@ -22,11 +22,11 @@ export const AboutSideWidget: React.FC<AboutSideWidgetProps> = ({
       <StickyMenuTitle title={title} />
 
       <div className="about-widget text-center">
-        <div className="relative w-full h-56 mb-4 overflow-hidden rounded">
+        <div className="relative w-full h-56 mb-4 overflow-hidden ">
           <img
             src={imageSrc}
             alt={title}
-            className="w-full h-full object-cover rounded"
+            className="w-full h-full object-cover"
           />
         </div>
 

@@ -1,10 +1,11 @@
+import { PageContainer } from "@/components/pageContainer/PageContainer";
 import { StickySideMenu } from "@/components/stickySideMenu/StickySideMenu";
-import { Title } from "@/components/Title";
+import { Title } from "@/components/title";
 import React from "react";
 
 export const AboutMe = () => {
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
+    <PageContainer>
       <div className=" flex flex-col lg:flex-row gap-12">
         <div className="w-full lg:w-4/6">
           <Title title="About Me" />
@@ -66,6 +67,6 @@ export const AboutMe = () => {
           <StickySideMenu />
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };
