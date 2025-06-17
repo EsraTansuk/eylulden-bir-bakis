@@ -58,7 +58,7 @@ export const ContactForm = () => {
                   id="fullName"
                   name="fullName"
                   placeholder="Ad Soyad"
-                  className="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary rounded-md"
+                  className="w-full px-4 py-2 border border-gray-300 outline-none focus:ring-2 focus:ring-[#A47DAB] focus:border-[#A47DAB]"
                 />
                 <ErrorMessage
                   name="fullName"
@@ -73,7 +73,7 @@ export const ContactForm = () => {
                   id="email"
                   name="email"
                   placeholder="E-posta"
-                  className="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
+                  className="w-full px-4 py-2 border border-gray-300 outline-none focus:ring-2 focus:ring-[#A47DAB] focus:border-[#A47DAB]"
                 />
                 <ErrorMessage
                   name="email"
@@ -88,7 +88,7 @@ export const ContactForm = () => {
                   id="subject"
                   name="subject"
                   placeholder="Konu"
-                  className="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
+                  className="w-full px-4 py-2 border border-gray-300  outline-none focus:ring-2 focus:ring-[#A47DAB] focus:border-[#A47DAB]"
                 />
                 <ErrorMessage
                   name="subject"
@@ -105,7 +105,7 @@ export const ContactForm = () => {
                 name="message"
                 rows={6}
                 placeholder="Mesaj"
-                className="w-full px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
+                className="w-full px-4 py-2 border border-gray-300 outline-none focus:ring-2 focus:ring-[#A47DAB] focus:border-[#A47DAB]"
               />
               <ErrorMessage
                 name="message"
@@ -118,7 +118,7 @@ export const ContactForm = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-1/4 bg-primary text-white py-2 px-4 hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors disabled:opacity-50"
+                className="w-1/4 bg-[#A47DAB] text-white py-2 px-4 rounded-md hover:bg-[#8a67a0] focus:outline-none focus:ring-2 focus:ring-[#A47DAB] focus:ring-offset-2 transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? "Gönderiliyor..." : "Gönder"}
               </button>
