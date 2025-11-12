@@ -84,12 +84,16 @@ export const Carousel: React.FC<CarouselProps> = ({
   // Kaç adet gösterge olacağını hesapla
   const totalSlides = Math.max(1, images.length - slidesPerView + 1);
   
-  // Her bir slayt için genişlik hesapla
-  const slideWidth = `${100 / slidesPerView}%`;
+  // Her bir slayt için genişlik hesapla (4px margin için alan bırak)
+  // Eğer slidesPerView > 1 ise, her slide arasında 4px boşluk olacak
+  const gapSize = slidesPerView > 1 ? (slidesPerView - 1) * 4 : 0;
+  const slideWidth = slidesPerView > 1 
+    ? `calc((100% - ${gapSize}px) / ${slidesPerView})`
+    : '100%';
 
   return (
     <div 
-      className={`relative w-full ${height} overflow-hidden rounded-xl shadow-md`}
+      className={`relative w-full ${height} overflow-hidden  shadow-md`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       ref={slideRef}
@@ -97,7 +101,11 @@ export const Carousel: React.FC<CarouselProps> = ({
       {/* Slayt Gösterisi */}
       <div 
         className="flex h-full transition-transform duration-500 ease-in-out"
-        style={{ transform: `translateX(-${currentIndex * (100 / slidesPerView)}%)` }}
+        style={{ 
+          transform: slidesPerView > 1 
+            ? `translateX(calc(-${currentIndex} * (100% + 4px) / ${slidesPerView}))`
+            : `translateX(-${currentIndex * 100}%)`
+        }}
       >
         {images.map((image, index) => (
           <CarouselSlide 
@@ -105,6 +113,7 @@ export const Carousel: React.FC<CarouselProps> = ({
             image={image}
             index={index}
             width={slideWidth}
+            isLast={index === images.length - 1}
           />
         ))}
       </div>

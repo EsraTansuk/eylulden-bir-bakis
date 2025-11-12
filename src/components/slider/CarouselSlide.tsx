@@ -7,19 +7,20 @@ interface CarouselSlideProps {
   image: string;
   index: number;
   width: string;
+  isLast?: boolean;
 }
 
-export const CarouselSlide: React.FC<CarouselSlideProps> = ({ image, index, width }) => {
+export const CarouselSlide: React.FC<CarouselSlideProps> = ({ image, index, width, isLast }) => {
   return (
     <div 
-      className="h-full flex-shrink-0" 
+      className={`h-full shrink-0 ${!isLast ? 'mr-1' : ''}`}
       style={{ width }}
     >
-      <div className="relative w-full h-full p-2">
+      <div className="relative w-full h-full">
         <Image
           src={image}
           alt={`Slayt ${index + 1}`}
-          className="object-cover rounded-lg"
+          className="object-cover"
           fill
           priority={index === 0}
         />
