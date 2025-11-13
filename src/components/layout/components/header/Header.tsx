@@ -32,9 +32,9 @@ export const Header = () => {
     };
   }, []);
 
-  // Menüleri order'a göre sırala (read-only array'i mutate etmemek için deep copy)
+  // Menüleri menuOrder'a göre sırala (read-only array'i mutate etmemek için deep copy)
   const sortedMenus = useMemo(() => {
-    return menus.slice().sort((a, b) => a.order - b.order);
+    return menus.slice().sort((a, b) => a.menuOrder - b.menuOrder);
   }, [menus]);
 
   return (
@@ -139,7 +139,7 @@ export const Header = () => {
                       if (menu.subMenus && menu.subMenus.length > 0) {
                         const subMenuItems = menu.subMenus
                           .slice()
-                          .sort((a, b) => a.order - b.order)
+                          .sort((a, b) => a.menuOrder - b.menuOrder)
                           .map((subMenu) => ({
                             name: subMenu.name,
                             href: subMenu.link,
@@ -164,7 +164,7 @@ export const Header = () => {
                             <div className="relative">
                               <Link
                                 href={menu.link}
-                                target={menu.target}
+                                target={menu.menuTarget}
                                 className={`
                                   text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
                                   transition-all duration-300 pb-1 block

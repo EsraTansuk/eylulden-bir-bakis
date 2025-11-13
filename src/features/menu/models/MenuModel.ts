@@ -3,8 +3,8 @@ export interface SubMenu {
   name: string;
   link: string;
   icon?: string;
-  order: number;
-  target: "_self" | "_blank";
+  menuOrder: number;
+  menuTarget: "_self" | "_blank";
 }
 
 export interface MenuModel {
@@ -12,8 +12,8 @@ export interface MenuModel {
   name: string;
   link: string;
   icon?: string;
-  order: number;
-  target: "_self" | "_blank";
-  subMenus: SubMenu[];
+  menuOrder: number;
+  menuTarget: "_self" | "_blank";
+  subMenus?: SubMenu[];
 }
 
