@@ -17,7 +17,7 @@ const transformArticleForCard = (article: ArticleModel) => {
   const categories = [];
 
   // Eğer category'nin parentCategory'si varsa, önce ana kategoriyi ekle
-  if (article.category.parentCategory) {
+  if (article.category?.parentCategory) {
     categories.push({
       name: article.category.parentCategory.name,
       slug: article.category.parentCategory.slug || article.category.parentCategory._id,
@@ -27,7 +27,7 @@ const transformArticleForCard = (article: ArticleModel) => {
       name: article.category.name,
       slug: article.category.slug || article.category._id,
     });
-  } else {
+  } else if (article.category) {
     // Sadece ana kategori varsa
     categories.push({
       name: article.category.name,
@@ -42,8 +42,8 @@ const transformArticleForCard = (article: ArticleModel) => {
     thumbnailUrl: article.image || "",
     categories,
     author: {
-      name: article.author.name,
-      slug: article.author.slug || article.author._id,
+      name: article.author?.name || "",
+      slug: article.author?.slug || article.author?._id || "",
     },
     date: article.createdAt,
     likeCount: article.views,
@@ -51,10 +51,21 @@ const transformArticleForCard = (article: ArticleModel) => {
   };
 };
 
-export const ArticleList = () => {
-  const { data: response, isLoading, error } = useGetArticlesQuery({
-    status: "published",
-  });
+interface ArticleListProps {
+  articles?: ArticleModel[];
+  isLoading?: boolean;
+}
+
+export const ArticleList = ({ articles: providedArticles, isLoading: providedIsLoading }: ArticleListProps = {}) => {
+  // Eğer articles prop'u geçilmişse, API çağrısı yapma
+  const { data: response, isLoading: isLoadingFromApi, error } = useGetArticlesQuery(
+    { status: "published" },
+    { skip: !!providedArticles } // Eğer articles prop'u varsa API çağrısını atla
+  );
+
+  // Prop'tan gelen articles varsa onu kullan, yoksa API'den gelen veriyi kullan
+  const articles = providedArticles || response?.articles || [];
+  const isLoading = providedIsLoading !== undefined ? providedIsLoading : isLoadingFromApi;
 
   if (isLoading) {
     return (
@@ -95,8 +106,6 @@ export const ArticleList = () => {
       </main>
     );
   }
-
-  const articles = response?.articles || [];
 
   if (articles.length === 0) {
     return (
