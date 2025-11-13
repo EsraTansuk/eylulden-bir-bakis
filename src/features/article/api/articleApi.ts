@@ -9,6 +9,7 @@ interface GetArticlesParams {
   category?: string;
   subcategory?: string; // Alt kategori ID'si ile filtreleme
   author?: string;
+  search?: string; // Arama parametresi
 }
 
 const articleApi = rtkBaseApi
@@ -26,6 +27,7 @@ const articleApi = rtkBaseApi
           if (params?.category) searchParams.append("category", params.category);
           if (params?.subcategory) searchParams.append("subcategory", params.subcategory);
           if (params?.author) searchParams.append("author", params.author);
+          if (params?.search) searchParams.append("search", params.search);
           
           const queryString = searchParams.toString();
           // Backend endpoint'i: /api/articles (v1 prefix'i yok)
@@ -36,6 +38,50 @@ const articleApi = rtkBaseApi
           };
         },
         providesTags: ["Articles"],
+      }),
+      getArticlesByCategory: build.query<ArticlesResponse, { categoryId: string; page?: number; limit?: number }>({
+        query: ({ categoryId, page = 1, limit = 10 }) => {
+          const searchParams = new URLSearchParams();
+          if (page) searchParams.append("page", page.toString());
+          if (limit) searchParams.append("limit", limit.toString());
+          
+          const queryString = searchParams.toString();
+          // Backend endpoint'i: /api/articles/category/:categoryId (ID veya slug ile çalışır)
+          const url = `/articles/category/${categoryId}${queryString ? `?${queryString}` : ""}`;
+          return {
+            url,
+            method: "GET",
+          };
+        },
+        providesTags: (result, error, { categoryId }) => [{ type: "Articles", id: `category-${categoryId}` }],
+      }),
+      getArticlesByCategorySlug: build.query<ArticlesResponse & { category?: { _id: string; name: string; slug: string; parentCategory?: { _id: string; name: string; slug: string } | null } }, { parentSlug?: string; childSlug?: string; slug?: string; page?: number; limit?: number }>({
+        query: ({ parentSlug, childSlug, slug, page = 1, limit = 10 }) => {
+          const searchParams = new URLSearchParams();
+          if (page) searchParams.append("page", page.toString());
+          if (limit) searchParams.append("limit", limit.toString());
+          
+          const queryString = searchParams.toString();
+          let url = "";
+          
+          // Eğer childSlug varsa: /api/categories/:parentSlug/:childSlug
+          if (parentSlug && childSlug) {
+            url = `/categories/${parentSlug}/${childSlug}${queryString ? `?${queryString}` : ""}`;
+          } 
+          // Eğer sadece slug varsa: /api/categories/:slug
+          else if (slug) {
+            url = `/categories/${slug}${queryString ? `?${queryString}` : ""}`;
+          }
+          
+          return {
+            url,
+            method: "GET",
+          };
+        },
+        providesTags: (result, error, { parentSlug, childSlug, slug }) => [{ 
+          type: "Articles", 
+          id: `category-slug-${parentSlug || slug}-${childSlug || ""}` 
+        }],
       }),
       getArticle: build.query<ArticleModel, string>({
         query: (id: string) => {
@@ -71,5 +117,7 @@ export const {
   useGetArticlesQuery,
   useGetArticleQuery,
   useGetArticleBySlugQuery,
+  useGetArticlesByCategoryQuery,
+  useGetArticlesByCategorySlugQuery,
 } = articleApi;
 

@@ -15,7 +15,19 @@ export const Header = () => {
 
   // Aktif menü öğesini kontrol eden fonksiyon
   const isActive = (path: string) => {
-    return pathname === path;
+    // Tam eşleşme kontrolü
+    if (pathname === path) {
+      return true;
+    }
+    
+    // Kategori sayfaları için: /category/[id] formatındaki pathname'leri kontrol et
+    if (path.startsWith("/category/") && pathname.startsWith("/category/")) {
+      const pathCategoryId = path.replace("/category/", "");
+      const currentCategoryId = pathname.replace("/category/", "");
+      return pathCategoryId === currentCategoryId;
+    }
+    
+    return false;
   };
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -135,6 +147,17 @@ export const Header = () => {
                     </li>
                   ) : (
                     sortedMenus.map((menu) => {
+                      // Link'i normalize et: /api/articles/category/category-id -> /category/category-id
+                      const normalizeLink = (link: string) => {
+                        if (link.startsWith("/api/articles/category/")) {
+                          const categoryId = link.replace("/api/articles/category/", "");
+                          return `/category/${categoryId}`;
+                        }
+                        return link;
+                      };
+
+                      const normalizedMenuLink = normalizeLink(menu.link);
+
                       // SubMenus varsa dropdown, yoksa normal link
                       if (menu.subMenus && menu.subMenus.length > 0) {
                         const subMenuItems = menu.subMenus
@@ -142,11 +165,11 @@ export const Header = () => {
                           .sort((a, b) => a.menuOrder - b.menuOrder)
                           .map((subMenu) => ({
                             name: subMenu.name,
-                            href: subMenu.link,
+                            href: normalizeLink(subMenu.link),
                           }));
 
-                        // Link'ten menuKey çıkar (örn: /reportage -> reportage)
-                        const menuKey = menu.link.replace(/^\//, "").split("/")[0] || menu._id;
+                        // Link'ten menuKey çıkar (örn: /category/category-id -> category)
+                        const menuKey = normalizedMenuLink.replace(/^\//, "").split("/")[0] || menu._id;
 
                         return (
                           <DropdownHeader
@@ -163,13 +186,13 @@ export const Header = () => {
                           <li key={menu._id} className="block lg:inline-block py-2 lg:py-0">
                             <div className="relative">
                               <Link
-                                href={menu.link}
+                                href={normalizedMenuLink}
                                 target={menu.menuTarget}
                                 className={`
                                   text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
                                   transition-all duration-300 pb-1 block
                                   ${
-                                    isActive(menu.link)
+                                    isActive(normalizedMenuLink)
                                       ? "text-primary nav-item active"
                                       : "text-gray-700 hover:text-primary nav-item"
                                   }

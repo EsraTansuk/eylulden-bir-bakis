@@ -19,9 +19,9 @@ export interface SocialMediaLink {
 export interface ArticleModel {
   _id: string;
   title: string;
-  content: string;
-  excerpt?: string; // Makale özeti (opsiyonel)
-  image: string;
+  content?: string; // Detay sayfasında gelir, liste sayfalarında gelmez
+  excerpt?: string; // Makale özeti (liste sayfalarında gelir)
+  image: string | null; // Backend'den null olarak gelebilir
   category: Category; // Kategori (eğer parentCategory varsa bu bir alt kategoridir)
   author: Author;
   socialMediaLinks?: SocialMediaLink[];
