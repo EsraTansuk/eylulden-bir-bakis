@@ -132,17 +132,33 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       <div className="grid-header-box p-5 flex flex-col justify-between items-center">
         {/* Kategoriler */}
         <div className=" mb-3">
-          {categories.map((category, index) => (
-            <React.Fragment key={category.slug}>
-              <Link 
-                href={`/category/${category.slug}`} 
-                className=" mr-2 text-xs font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
-              >
-                {category.name}
-              </Link>
-              {index < categories.length - 1 && ", "}
-            </React.Fragment>
-          ))}
+          {categories.map((category, index) => {
+            // Eğer bu alt kategori ise (index > 0 ve parent category varsa) parent/child formatında link oluştur
+            let categoryHref = "";
+            if (index > 0 && categories.length > 1 && categories[0].slug) {
+              // Alt kategori: parent/child formatında
+              categoryHref = category.slug 
+                ? `/${categories[0].slug}/${category.slug}` 
+                : `/category/${category.slug || category.name}`;
+            } else {
+              // Ana kategori veya tek kategori
+              categoryHref = category.slug 
+                ? `/${category.slug}` 
+                : `/category/${category.slug || category.name}`;
+            }
+            
+            return (
+              <React.Fragment key={category.slug || index}>
+                <Link 
+                  href={categoryHref} 
+                  className=" mr-2 text-xs font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
+                >
+                  {category.name}
+                </Link>
+                {index < categories.length - 1 && ", "}
+              </React.Fragment>
+            );
+          })}
         </div>
 
         {/* Başlık */}

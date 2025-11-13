@@ -61,7 +61,11 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ slug }) => {
           {hasParentCategory && article.category.parentCategory && (
             <>
               <Link
-                href={`/category/${article.category.parentCategory.slug || article.category.parentCategory._id}`}
+                href={
+                  article.category.parentCategory.slug 
+                    ? `/${article.category.parentCategory.slug}` 
+                    : `/category/${article.category.parentCategory._id}`
+                }
                 className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
               >
                 {article.category.parentCategory.name}
@@ -70,12 +74,27 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ slug }) => {
             </>
           )}
           {/* Kategoriyi göster (alt kategori ise parentCategory'den sonra) */}
-          <Link
-            href={`/category/${article.category.slug || article.category._id}`}
-            className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
-          >
-            {article.category.name}
-          </Link>
+          {hasParentCategory && article.category.parentCategory && article.category.slug ? (
+            // Alt kategori: parent/child formatında
+            <Link
+              href={`/${article.category.parentCategory.slug}/${article.category.slug}`}
+              className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
+            >
+              {article.category.name}
+            </Link>
+          ) : (
+            // Ana kategori veya slug yoksa
+            <Link
+              href={
+                article.category.slug 
+                  ? `/${article.category.slug}` 
+                  : `/category/${article.category._id}`
+              }
+              className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
+            >
+              {article.category.name}
+            </Link>
+          )}
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-4 font-mainTitle text-center">
           {article.title}

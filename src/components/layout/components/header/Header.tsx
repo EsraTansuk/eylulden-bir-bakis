@@ -20,11 +20,26 @@ export const Header = () => {
       return true;
     }
     
-    // Kategori sayfaları için: /category/[id] formatındaki pathname'leri kontrol et
+    // Kategori sayfaları için: /category/[id] formatındaki pathname'leri kontrol et (ID bazlı)
     if (path.startsWith("/category/") && pathname.startsWith("/category/")) {
       const pathCategoryId = path.replace("/category/", "");
       const currentCategoryId = pathname.replace("/category/", "");
       return pathCategoryId === currentCategoryId;
+    }
+    
+    // Slug bazlı kategori sayfaları için: /parent-slug/child-slug veya /slug formatı
+    // path'te /category/ prefix'i yoksa ve pathname ile eşleşiyorsa
+    if (!path.startsWith("/category/") && !path.startsWith("/api") && pathname === path) {
+      return true;
+    }
+    
+    // Slug bazlı: /parent/child formatındaki pathname'leri kontrol et
+    const pathSegments = path.split("/").filter(Boolean);
+    const currentSegments = pathname.split("/").filter(Boolean);
+    
+    if (pathSegments.length === currentSegments.length && pathSegments.length > 0) {
+      // Tüm segmentler eşleşiyorsa aktif
+      return pathSegments.every((segment, index) => segment === currentSegments[index]);
     }
     
     return false;
@@ -147,12 +162,38 @@ export const Header = () => {
                     </li>
                   ) : (
                     sortedMenus.map((menu) => {
-                      // Link'i normalize et: /api/articles/category/category-id -> /category/category-id
+                      // Link'i normalize et
                       const normalizeLink = (link: string) => {
+                        // Eğer link zaten normalize edilmişse (frontend route formatında) direkt döndür
+                        // /category/ prefix'ini kaldır (artık root level route kullanıyoruz)
+                        if (link.startsWith("/category/")) {
+                          const slugPath = link.replace("/category/", "");
+                          return `/${slugPath}`;
+                        }
+                        if (link.startsWith("/") && !link.startsWith("/api") && !link.startsWith("/category")) {
+                          return link;
+                        }
+                        
+                        // /api/articles/category/category-id -> /category-id (ID bazlı, eski format)
                         if (link.startsWith("/api/articles/category/")) {
                           const categoryId = link.replace("/api/articles/category/", "");
                           return `/category/${categoryId}`;
                         }
+                        // /api/categories/parent-slug/child-slug -> /parent-slug/child-slug (root level [...slug] route)
+                        // /api/categories/slug -> /slug (root level [...slug] route)
+                        if (link.startsWith("/api/categories/")) {
+                          const slugPath = link.replace("/api/categories/", "");
+                          // Root level route kullan (category prefix yok)
+                          return `/${slugPath}`;
+                        }
+                        
+                        // Eğer link sadece slug ise (örn: "saglikli-yasam" veya "yasam-tarzi/saglikli-yasam")
+                        // ve / ile başlamıyorsa, / ekle
+                        if (!link.startsWith("/") && !link.startsWith("http")) {
+                          // Root level route kullan (category prefix yok)
+                          return `/${link}`;
+                        }
+                        
                         return link;
                       };
 
@@ -255,3 +296,4 @@ export const Header = () => {
     </>
   );
 };
+

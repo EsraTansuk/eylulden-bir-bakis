@@ -22,13 +22,18 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
   slug 
 }) => {
   // Slug bazlı sorgu (yeni endpoint)
+  // Backend endpoint'leri:
+  // - /api/categories/:parentSlug/:childSlug (alt kategori)
+  // - /api/categories/:slug (ana kategori)
   const {
     data: articlesDataBySlug,
     isLoading: isLoadingBySlug,
     error: errorBySlug,
   } = useGetArticlesByCategorySlugQuery(
     { parentSlug, childSlug, slug, page: 1, limit: 20 },
-    { skip: !parentSlug && !childSlug && !slug } // Sadece slug varsa çalıştır
+    { 
+      skip: !parentSlug && !childSlug && !slug // En az bir slug parametresi olmalı
+    }
   );
 
   // ID bazlı sorgu (eski endpoint - hem ID hem slug ile çalışır)
@@ -38,7 +43,9 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     error: errorById,
   } = useGetArticlesByCategoryQuery(
     { categoryId: categoryId!, page: 1, limit: 20 },
-    { skip: !categoryId || !!parentSlug || !!childSlug || !!slug } // Sadece categoryId varsa ve slug yoksa çalıştır
+    { 
+      skip: !categoryId || !!parentSlug || !!childSlug || !!slug // Sadece categoryId varsa ve slug yoksa çalıştır
+    }
   );
 
   // Slug varsa slug verisini, yoksa ID verisini kullan
@@ -75,13 +82,48 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
   }
 
   if (error) {
+    // Debug için error detaylarını logla
+    const errorData = errorBySlug || errorById;
+    const errorMessage = errorData && 'data' in errorData 
+      ? (errorData.data as any)?.message || JSON.stringify(errorData.data)
+      : errorData && 'error' in errorData
+      ? (errorData.error as any)?.data?.message || 'Bilinmeyen hata'
+      : 'Bilinmeyen hata';
+    
+    console.error("Category Page Error:", {
+      error,
+      categoryId,
+      parentSlug,
+      childSlug,
+      slug,
+      errorBySlug,
+      errorById,
+      errorData,
+      errorMessage,
+    });
+    
     return (
       <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="w-full lg:w-4/6">
             <div className="text-center py-12">
-              <p className="text-red-500">
-                Kategori yüklenirken bir hata oluştu. Lütfen tekrar deneyin.
+              <p className="text-red-500 mb-2 font-semibold">
+                Kategori yüklenirken bir hata oluştu.
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                {errorMessage}
+              </p>
+              <p className="text-xs text-gray-400 mt-4">
+                İstek: {parentSlug && childSlug 
+                  ? `/categories/${parentSlug}/${childSlug}` 
+                  : slug 
+                  ? `/categories/${slug}` 
+                  : categoryId 
+                  ? `/articles/category/${categoryId}` 
+                  : 'Bilinmiyor'}
+              </p>
+              <p className="text-xs text-gray-400 mt-2">
+                Lütfen console'u kontrol edin veya tekrar deneyin.
               </p>
             </div>
           </div>

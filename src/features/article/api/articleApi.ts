@@ -64,7 +64,7 @@ const articleApi = rtkBaseApi
           const queryString = searchParams.toString();
           let url = "";
           
-          // Eğer childSlug varsa: /api/categories/:parentSlug/:childSlug
+          // Eğer parentSlug ve childSlug varsa: /api/categories/:parentSlug/:childSlug
           if (parentSlug && childSlug) {
             url = `/categories/${parentSlug}/${childSlug}${queryString ? `?${queryString}` : ""}`;
           } 
@@ -72,6 +72,23 @@ const articleApi = rtkBaseApi
           else if (slug) {
             url = `/categories/${slug}${queryString ? `?${queryString}` : ""}`;
           }
+          // Eğer sadece parentSlug varsa (ana kategori): /api/categories/:parentSlug
+          else if (parentSlug) {
+            url = `/categories/${parentSlug}${queryString ? `?${queryString}` : ""}`;
+          }
+          
+          if (!url) {
+            throw new Error("Invalid category slug parameters");
+          }
+          
+          // Debug için console.log
+          console.log("Category API Request:", {
+            parentSlug,
+            childSlug,
+            slug,
+            url,
+            fullUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5001/api"}${url}`
+          });
           
           return {
             url,
@@ -80,7 +97,7 @@ const articleApi = rtkBaseApi
         },
         providesTags: (result, error, { parentSlug, childSlug, slug }) => [{ 
           type: "Articles", 
-          id: `category-slug-${parentSlug || slug}-${childSlug || ""}` 
+          id: `category-slug-${parentSlug || slug || ""}-${childSlug || ""}` 
         }],
       }),
       getArticle: build.query<ArticleModel, string>({
