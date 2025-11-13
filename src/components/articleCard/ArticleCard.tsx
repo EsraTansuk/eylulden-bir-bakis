@@ -133,19 +133,36 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         {/* Kategoriler */}
         <div className=" mb-3">
           {categories.map((category, index) => {
+            // Slug'un ObjectId formatında olup olmadığını kontrol et (24 karakterlik hex string)
+            const isObjectId = /^[0-9a-fA-F]{24}$/.test(category.slug);
+            
             // Eğer bu alt kategori ise (index > 0 ve parent category varsa) parent/child formatında link oluştur
             let categoryHref = "";
-            if (index > 0 && categories.length > 1 && categories[0].slug) {
+            if (index > 0 && categories.length > 1) {
               // Alt kategori: parent/child formatında
-              categoryHref = category.slug 
-                ? `/${categories[0].slug}/${category.slug}` 
-                : `/category/${category.slug || category.name}`;
+              const parentSlug = categories[0].slug;
+              const parentIsObjectId = /^[0-9a-fA-F]{24}$/.test(parentSlug);
+              
+              if (!isObjectId && !parentIsObjectId) {
+                // Her ikisi de slug ise: /parent-slug/child-slug (root level route)
+                categoryHref = `/${parentSlug}/${category.slug}`;
+              } else {
+                // ID varsa fallback: /category/id
+                categoryHref = `/category/${category.slug}`;
+              }
             } else {
               // Ana kategori veya tek kategori
-              categoryHref = category.slug 
-                ? `/${category.slug}` 
-                : `/category/${category.slug || category.name}`;
+              if (!isObjectId) {
+                // Slug ise: /slug (root level route, category prefix yok)
+                categoryHref = `/${category.slug}`;
+              } else {
+                // ID ise: /category/id
+                categoryHref = `/category/${category.slug}`;
+              }
             }
+            
+            // Debug log (geliştirme sırasında kullanılabilir)
+            // console.log("Category Link:", { category: category.name, slug: category.slug, isObjectId, categoryHref });
             
             return (
               <React.Fragment key={category.slug || index}>

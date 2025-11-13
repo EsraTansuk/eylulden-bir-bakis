@@ -20,17 +20,20 @@ const transformArticleForCard = (article: ArticleModel) => {
   if (article.category?.parentCategory) {
     categories.push({
       name: article.category.parentCategory.name,
+      // Slug varsa slug kullan, yoksa ID kullan (ObjectId formatında)
       slug: article.category.parentCategory.slug || article.category.parentCategory._id,
     });
     // Sonra alt kategoriyi ekle
     categories.push({
       name: article.category.name,
+      // Slug varsa slug kullan, yoksa ID kullan (ObjectId formatında)
       slug: article.category.slug || article.category._id,
     });
   } else if (article.category) {
     // Sadece ana kategori varsa
     categories.push({
       name: article.category.name,
+      // Slug varsa slug kullan, yoksa ID kullan (ObjectId formatında)
       slug: article.category.slug || article.category._id,
     });
   }
