@@ -11,17 +11,34 @@ const transformArticleForCard = (article: ArticleModel) => {
     ? article.content.replace(/<[^>]*>/g, "").substring(0, 150) + "..."
     : "";
 
+  // Kategorileri array olarak oluştur (ana kategori + alt kategori)
+  const categories = [];
+
+  // Eğer category'nin parentCategory'si varsa, önce ana kategoriyi ekle
+  if (article.category.parentCategory) {
+    categories.push({
+      name: article.category.parentCategory.name,
+      slug: article.category.parentCategory.slug || article.category.parentCategory._id,
+    });
+    // Sonra alt kategoriyi ekle
+    categories.push({
+      name: article.category.name,
+      slug: article.category.slug || article.category._id,
+    });
+  } else {
+    // Sadece ana kategori varsa
+    categories.push({
+      name: article.category.name,
+      slug: article.category.slug || article.category._id,
+    });
+  }
+
   return {
     title: article.title,
     slug: article.slug,
     excerpt,
     thumbnailUrl: article.image || "",
-    categories: [
-      {
-        name: article.category.name,
-        slug: article.category.slug || article.category._id,
-      },
-    ],
+    categories,
     author: {
       name: article.author.name,
       slug: article.author.slug || article.author._id,

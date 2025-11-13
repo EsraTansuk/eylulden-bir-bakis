@@ -7,6 +7,7 @@ interface GetArticlesParams {
   limit?: number;
   status?: "draft" | "published";
   category?: string;
+  subcategory?: string; // Alt kategori ID'si ile filtreleme
   author?: string;
 }
 
@@ -23,6 +24,7 @@ const articleApi = rtkBaseApi
           if (params?.limit) searchParams.append("limit", params.limit.toString());
           if (params?.status) searchParams.append("status", params.status);
           if (params?.category) searchParams.append("category", params.category);
+          if (params?.subcategory) searchParams.append("subcategory", params.subcategory);
           if (params?.author) searchParams.append("author", params.author);
           
           const queryString = searchParams.toString();
@@ -36,17 +38,17 @@ const articleApi = rtkBaseApi
         providesTags: ["Articles"],
       }),
       getArticle: build.query<ArticleModel, string>({
-        query: (idOrSlug: string) => {
-          // Backend'de hem ID hem slug için aynı endpoint kullanılıyor: /api/articles/:param
-          // Backend otomatik olarak ID mi slug mı olduğunu anlıyor
-          const url = `/articles/${idOrSlug}`;
-          console.log("getArticle URL:", url);
+        query: (id: string) => {
+          // Backend'de ID için: /api/articles/:id
+          // MongoDB ObjectId formatı: 24 karakterlik hex string
+          // Backend ID formatını kontrol ediyor, geçersiz ID'ler için 400 dönüyor
+          const url = `/articles/${id}`;
           return {
             url,
             method: "GET",
           };
         },
-        providesTags: (result, error, idOrSlug) => [{ type: "Articles", id: idOrSlug }],
+        providesTags: (result, error, id) => [{ type: "Articles", id }],
       }),
       getArticleBySlug: build.query<ArticleModel, string>({
         query: (slug: string) => ({

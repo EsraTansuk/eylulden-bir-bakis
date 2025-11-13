@@ -50,15 +50,28 @@ export const ArticleDetail: React.FC<ArticleDetailProps> = ({ slug }) => {
     );
   }
 
-  const categorySlug = article.category.slug || article.category._id;
   const authorSlug = article.author.slug || article.author._id;
+  const hasParentCategory = !!article.category.parentCategory;
 
   return (
     <article className="bg-white overflow-hidden">
       <div className="flex flex-col justify-center items-center">
         <div className="mb-4">
+          {/* Eğer parentCategory varsa, önce ana kategoriyi göster */}
+          {hasParentCategory && article.category.parentCategory && (
+            <>
+              <Link
+                href={`/category/${article.category.parentCategory.slug || article.category.parentCategory._id}`}
+                className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
+              >
+                {article.category.parentCategory.name}
+              </Link>
+              <span className="mr-2 text-sm text-gray-400">/</span>
+            </>
+          )}
+          {/* Kategoriyi göster (alt kategori ise parentCategory'den sonra) */}
           <Link
-            href={`/category/${categorySlug}`}
+            href={`/category/${article.category.slug || article.category._id}`}
             className="mr-2 text-sm font-bold uppercase text-primary hover:text-primaryState-hover font-categoryTitle"
           >
             {article.category.name}
