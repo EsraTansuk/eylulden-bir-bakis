@@ -20,6 +20,7 @@ export interface ArticleModel {
   _id: string;
   title: string;
   content: string;
+  excerpt?: string; // Makale özeti (opsiyonel)
   image: string;
   category: Category; // Kategori (eğer parentCategory varsa bu bir alt kategoridir)
   author: Author;

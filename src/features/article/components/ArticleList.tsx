@@ -6,8 +6,10 @@ import { ArticleModel } from "../models/ArticleModel";
 
 // Backend'den gelen ArticleModel'i ArticleCard props'una dönüştür
 const transformArticleForCard = (article: ArticleModel) => {
-  // Content'ten excerpt oluştur (ilk 150 karakter)
-  const excerpt = article.content
+  // Backend'den excerpt geliyorsa onu kullan, yoksa content'ten oluştur
+  const excerpt = article.excerpt
+    ? article.excerpt
+    : article.content
     ? article.content.replace(/<[^>]*>/g, "").substring(0, 150) + "..."
     : "";
 
