@@ -3,8 +3,11 @@
 import { StickySideMenu } from "@/components/stickySideMenu/StickySideMenu";
 import { Title } from "@/components/Title";
 import React, { useState } from "react";
+import { useSubmitContactMutation } from "./api/contactApi";
 
 export const Contact = () => {
+  const [submitContact, { isLoading: isSubmitting }] = useSubmitContactMutation();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,7 +15,6 @@ export const Contact = () => {
     message: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
@@ -30,32 +32,28 @@ export const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      // TODO: API endpoint'e form verilerini gönder
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
+      const response = await submitContact(formData).unwrap();
 
-      // Şimdilik simüle ediyoruz
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setSubmitStatus({
-        type: "success",
-        message: "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.",
-      });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (error) {
+      if (response.success) {
+        setSubmitStatus({
+          type: "success",
+          message: response.message || "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: response.message || "Bir hata oluştu. Lütfen tekrar deneyin.",
+        });
+      }
+    } catch (error: any) {
       setSubmitStatus({
         type: "error",
-        message: "Bir hata oluştu. Lütfen tekrar deneyin.",
+        message: error?.data?.message || error?.message || "Bir hata oluştu. Lütfen tekrar deneyin.",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
