@@ -26,7 +26,7 @@ export interface ContactInfo {
   location?: string;
   workingHours?: string;
   socialMediaLinks?: Array<{
-    platform: string;
+    icon: string;
     url: string;
   }>;
 }

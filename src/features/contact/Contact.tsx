@@ -4,6 +4,38 @@ import { StickySideMenu } from "@/components/stickySideMenu/StickySideMenu";
 import { Title } from "@/components/Title";
 import React, { useState } from "react";
 import { useSubmitContactMutation, useGetContactInfoQuery } from "./api/contactApi";
+import {
+  FaInstagram,
+  FaYoutube,
+  FaTiktok,
+  FaPinterest,
+  FaEnvelope,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaGlobe,
+} from "react-icons/fa";
+
+// Icon mapping - backend'den gelen icon string'ini React icon component'ine çevirir
+const getIconComponent = (iconName: string | undefined) => {
+  if (!iconName) {
+    return <FaGlobe className="text-xl" />;
+  }
+
+  const iconMap: Record<string, React.ReactNode> = {
+    instagram: <FaInstagram className="text-xl" />,
+    youtube: <FaYoutube className="text-xl" />,
+    tiktok: <FaTiktok className="text-xl" />,
+    pinterest: <FaPinterest className="text-xl" />,
+    email: <FaEnvelope className="text-xl" />,
+    facebook: <FaFacebook className="text-xl" />,
+    twitter: <FaTwitter className="text-xl" />,
+    linkedin: <FaLinkedin className="text-xl" />,
+    globe: <FaGlobe className="text-xl" />,
+  };
+
+  return iconMap[iconName.toLowerCase()] || <FaGlobe className="text-xl" />;
+};
 
 export const Contact = () => {
   const [submitContact, { isLoading: isSubmitting }] = useSubmitContactMutation();
@@ -343,16 +375,17 @@ export const Contact = () => {
                       <h4 className="font-subHeadling font-semibold text-textColor mb-2">
                         Sosyal Medya
                       </h4>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-3">
                         {contactInfo.socialMediaLinks.map((link, index) => (
                           <a
                             key={index}
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-text-light hover:text-primary transition-colors text-sm"
+                            className="border-2 text-gray-600 border-gray-400 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors hover:scale-105 duration-300 hover:border-primary w-10 h-10"
+                            aria-label={link.icon}
                           >
-                            {link.platform}
+                            {getIconComponent(link.icon)}
                           </a>
                         ))}
                       </div>
