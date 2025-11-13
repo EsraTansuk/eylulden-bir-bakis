@@ -1,62 +1,99 @@
 "use client";
 
 import { ArticleCard } from "@/components/articleCard";
+import { useGetArticlesQuery } from "../api/articleApi";
+import { ArticleModel } from "../models/ArticleModel";
 
-export const ArticleList = () => {
-  // Örnek veri
-  const article = {
-    title: "Bucket Listesindeki Maceralar",
-    slug: "bucket-listesindeki-maceralar",
-    excerpt:
-      "22 yaşındaki hayallerim ve gerçekleştirmek istediğim maceralar hakkında düşünceler ve planlar...",
-    thumbnailUrl:
-      "https://soledad.pencidesign.net/wp-content/uploads/2017/06/cloud.jpg",
+// Backend'den gelen ArticleModel'i ArticleCard props'una dönüştür
+const transformArticleForCard = (article: ArticleModel) => {
+  // Content'ten excerpt oluştur (ilk 150 karakter)
+  const excerpt = article.content
+    ? article.content.replace(/<[^>]*>/g, "").substring(0, 150) + "..."
+    : "";
+
+  return {
+    title: article.title,
+    slug: article.slug,
+    excerpt,
+    thumbnailUrl: article.image || "",
     categories: [
-      { name: "Anılar", slug: "anilar" },
-      { name: "Fotoğrafçılık", slug: "fotografcilik" },
+      {
+        name: article.category.name,
+        slug: article.category.slug || article.category._id,
+      },
     ],
     author: {
-      name: "Ahmet Yazar",
-      slug: "ahmet-yazar",
+      name: article.author.name,
+      slug: article.author.slug || article.author._id,
     },
-    date: "2023-08-15T12:00:00.000Z",
-    likeCount: 379,
-    postFormat: "quote" as const,
+    date: article.createdAt,
+    likeCount: article.views,
+    postFormat: "standard" as const,
   };
+};
 
-  const articles = [
-    article,
-    {
-      ...article,
-      title: "Yaz Tatili Anıları",
-      postFormat: "quote" as const,
-      slug: "yaz-tatili-anilari",
-    },
-    {
-      ...article,
-      title: "Doğa Fotoğrafçılığı",
-      postFormat: "gallery" as const,
-      slug: "doga-fotografciligi",
-    },
-    {
-      ...article,
-      title: "Şehir Turu",
-      postFormat: "video" as const,
-      slug: "sehir-turu",
-    },
-    {
-      ...article,
-      title: "Tarifler ve Lezzetler",
-      slug: "tarifler-ve-lezzetler",
-    },
-    { ...article, title: "Köy Hayatı", slug: "koy-hayati" },
-  ];
+export const ArticleList = () => {
+  const { data: response, isLoading, error } = useGetArticlesQuery({
+    status: "published",
+  });
+
+  if (isLoading) {
+    return (
+      <main className="container mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="bg-white rounded-md overflow-hidden shadow-md animate-pulse"
+            >
+              <div className="h-64 bg-gray-200"></div>
+              <div className="p-5 space-y-3">
+                <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+    );
+  }
+
+  if (error) {
+    console.error("ArticleList Error:", error);
+    return (
+      <main className="container mx-auto">
+        <div className="text-center py-12">
+          <p className="text-red-500 mb-2">
+            Makaleler yüklenirken bir hata oluştu.
+          </p>
+          <p className="text-sm text-gray-500">
+            {error && "status" in error
+              ? `Hata: ${error.status} - ${JSON.stringify(error)}`
+              : "Lütfen tarayıcı konsolunu kontrol edin."}
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  const articles = response?.articles || [];
+
+  if (articles.length === 0) {
+    return (
+      <main className="container mx-auto">
+        <div className="text-center py-12">
+          <p className="text-gray-500">Henüz makale bulunmamaktadır.</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
-    <main className="container mx-auto ">
-      <div className="grid grid-cols-1  lg:grid-cols-2 gap-6">
-        {articles.map((article, index) => (
-          <ArticleCard key={index} {...article} />
+    <main className="container mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {articles.map((article) => (
+          <ArticleCard key={article._id} {...transformArticleForCard(article)} />
         ))}
       </div>
     </main>
