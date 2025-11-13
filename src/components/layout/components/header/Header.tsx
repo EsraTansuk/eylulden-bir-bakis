@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { DropdownHeader } from "./DropdownHeader";
 import { SideMenu } from "../sideMenu/SideMenu";
+import { useGetMenusQuery } from "@/features/menu/api";
 
 export const Header = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const { data: menus = [], isLoading } = useGetMenusQuery();
 
   // Aktif menü öğesini kontrol eden fonksiyon
   const isActive = (path: string) => {
@@ -30,39 +32,10 @@ export const Header = () => {
     };
   }, []);
 
-  // Dropdown menü içerikleri
-  const dropdownMenus = {
-    reportage: [
-      { name: "Gençler", href: "/reportage/youth" },
-      { name: "Kadınlar", href: "/reportage/women" },
-      { name: "Emekçiler", href: "/reportage/workers" },
-      { name: "Yaratıcılar", href: "/reportage/creators" },
-      { name: "Kurumsal", href: "/reportage/corporate" },
-    ],
-    streetStory: [
-      { name: "Mahalle Hayatları", href: "/street-story/neighborhood-life" },
-      { name: "Sokak ve Mekanlar", href: "/street-story/streets-and-places" },
-      {
-        name: "Kültür ve Etkinlikler",
-        href: "/street-story/culture-and-events",
-      },
-      { name: "Küçük Keşifler", href: "/street-story/small-discoveries" },
-    ],
-    natureAndLife: [
-      { name: "Doğa ve Hayat", href: "/nature-and-life/nature-and-life" },
-      {
-        name: "Toprak ve Üretim",
-        href: "/nature-and-life/soil-and-production",
-      },
-      { name: "Sürdürülebilirlik", href: "/nature-and-life/sustainability" },
-      { name: "Hayvanlar", href: "/nature-and-life/animals" },
-    ],
-    memories: [
-      { name: "Yolculuk Anıları", href: "/travel-memories" },
-      { name: "Anlatılar", href: "/stories" },
-      { name: "Fotoğraflar", href: "/photos" },
-    ],
-  };
+  // Menüleri order'a göre sırala (read-only array'i mutate etmemek için deep copy)
+  const sortedMenus = useMemo(() => {
+    return menus.slice().sort((a, b) => a.order - b.order);
+  }, [menus]);
 
   return (
     <>
@@ -135,13 +108,14 @@ export const Header = () => {
                   z-50 justify-center items-center font-categoryTitle 
                 `}
                 >
-                  <li className="block lg:inline-block py-2 lg:py-0 ">
+                  {/* Anasayfa - Sabit menü */}
+                  <li className="block lg:inline-block py-2 lg:py-0">
                     <div className="relative">
                       <Link
                         href="/"
                         className={`
                           text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
-                          transition-all duration-300 pb-1 block 
+                          transition-all duration-300 pb-1 block
                           ${
                             isActive("/")
                               ? "text-primary nav-item active"
@@ -154,41 +128,64 @@ export const Header = () => {
                     </div>
                   </li>
 
-                  {/* Dropdown menüler */}
+                  {/* Backend'den gelen menüler */}
+                  {isLoading ? (
+                    <li className="block lg:inline-block py-2 lg:py-0">
+                      <div className="text-sm text-gray-500">Yükleniyor...</div>
+                    </li>
+                  ) : (
+                    sortedMenus.map((menu) => {
+                      // SubMenus varsa dropdown, yoksa normal link
+                      if (menu.subMenus && menu.subMenus.length > 0) {
+                        const subMenuItems = menu.subMenus
+                          .slice()
+                          .sort((a, b) => a.order - b.order)
+                          .map((subMenu) => ({
+                            name: subMenu.name,
+                            href: subMenu.link,
+                          }));
 
-                  <DropdownHeader
-                    title="Röportaj"
-                    menuKey="reportage"
-                    items={dropdownMenus.reportage}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
+                        // Link'ten menuKey çıkar (örn: /reportage -> reportage)
+                        const menuKey = menu.link.replace(/^\//, "").split("/")[0] || menu._id;
 
-                  <DropdownHeader
-                    title="Sokak Hikayeleri"
-                    menuKey="streetStory"
-                    items={dropdownMenus.streetStory}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
+                        return (
+                          <DropdownHeader
+                            key={menu._id}
+                            title={menu.name}
+                            menuKey={menuKey}
+                            items={subMenuItems}
+                            isActive={isActive}
+                            pathname={pathname}
+                          />
+                        );
+                      } else {
+                        return (
+                          <li key={menu._id} className="block lg:inline-block py-2 lg:py-0">
+                            <div className="relative">
+                              <Link
+                                href={menu.link}
+                                target={menu.target}
+                                className={`
+                                  text-sm tracking-wider font-bold px-4 lg:px-0 uppercase
+                                  transition-all duration-300 pb-1 block
+                                  ${
+                                    isActive(menu.link)
+                                      ? "text-primary nav-item active"
+                                      : "text-gray-700 hover:text-primary nav-item"
+                                  }
+                                `}
+                              >
+                                {menu.name}
+                              </Link>
+                            </div>
+                          </li>
+                        );
+                      }
+                    })
+                  )}
 
-                  <DropdownHeader
-                    title="Doğa ve Hayat"
-                    menuKey="natureAndLife"
-                    items={dropdownMenus.natureAndLife}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
-
-                  <DropdownHeader
-                    title="Anılar"
-                    menuKey="memories"
-                    items={dropdownMenus.memories}
-                    isActive={isActive}
-                    pathname={pathname}
-                  />
-
-                  <li className="block lg:inline-block py-2 lg:py-0 font-bold">
+                  {/* Hakkımda - Sabit menü */}
+                  <li className="block lg:inline-block py-2 lg:py-0">
                     <div className="relative">
                       <Link
                         href="/about-me"
@@ -206,8 +203,10 @@ export const Header = () => {
                       </Link>
                     </div>
                   </li>
-                  <li className="block lg:inline-block py-2 lg:py-0 ">
-                    <div className="relative ">
+
+                  {/* İletişim - Sabit menü */}
+                  <li className="block lg:inline-block py-2 lg:py-0">
+                    <div className="relative">
                       <Link
                         href="/contact"
                         className={`
