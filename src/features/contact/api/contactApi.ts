@@ -1,4 +1,4 @@
-import { ContactFormModel, ContactResponse } from "../models/ContactModel";
+import { ContactFormModel, ContactResponse, ContactInfo } from "../models/ContactModel";
 import { rtkBaseApi } from "@/lib/redux-toolkit/rtkBaseApi";
 
 const contactApi = rtkBaseApi
@@ -7,6 +7,13 @@ const contactApi = rtkBaseApi
   })
   .injectEndpoints({
     endpoints: (build) => ({
+      getContactInfo: build.query<ContactInfo, void>({
+        query: () => ({
+          url: `/contact`,
+          method: "GET",
+        }),
+        providesTags: ["Contacts"],
+      }),
       submitContact: build.mutation<ContactResponse, ContactFormModel>({
         query: (data: ContactFormModel) => ({
           url: `/contact`,
@@ -25,5 +32,5 @@ const contactApi = rtkBaseApi
 
 export { contactApi };
 
-export const { useSubmitContactMutation } = contactApi;
+export const { useGetContactInfoQuery, useSubmitContactMutation } = contactApi;
 

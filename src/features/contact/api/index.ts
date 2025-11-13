@@ -1,2 +1,2 @@
-export { contactApi, useSubmitContactMutation } from "./contactApi";
+export { contactApi, useGetContactInfoQuery, useSubmitContactMutation } from "./contactApi";
 

@@ -18,3 +18,16 @@ export interface ContactResponse {
   };
 }
 
+export interface ContactInfo {
+  _id?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  location?: string;
+  workingHours?: string;
+  socialMediaLinks?: Array<{
+    platform: string;
+    url: string;
+  }>;
+}
+
