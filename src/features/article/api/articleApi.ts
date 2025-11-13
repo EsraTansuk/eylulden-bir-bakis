@@ -1,5 +1,4 @@
-import { UpdateArticleModel } from "../models/UpdateArticleModel";
-import { CreateArticleModel } from "../models/CreateArticleModel";
+
 import { ArticleModel, ArticlesResponse } from "../models/ArticleModel";
 import { rtkBaseApi } from "@/lib/redux-toolkit/rtkBaseApi";
 
@@ -37,57 +36,30 @@ const articleApi = rtkBaseApi
         providesTags: ["Articles"],
       }),
       getArticle: build.query<ArticleModel, string>({
-        query: (id: string) => ({
-          url: `/articles/${id}`,
-          method: "GET",
-        }),
-        providesTags: (result, error, id) => [{ type: "Articles", id }],
+        query: (idOrSlug: string) => {
+          // Backend'de hem ID hem slug için aynı endpoint kullanılıyor: /api/articles/:param
+          // Backend otomatik olarak ID mi slug mı olduğunu anlıyor
+          const url = `/articles/${idOrSlug}`;
+          console.log("getArticle URL:", url);
+          return {
+            url,
+            method: "GET",
+          };
+        },
+        providesTags: (result, error, idOrSlug) => [{ type: "Articles", id: idOrSlug }],
       }),
       getArticleBySlug: build.query<ArticleModel, string>({
         query: (slug: string) => ({
           // Backend'de slug için özel endpoint yok, slug direkt path parametresi
+          // getArticle ile aynı endpoint'i kullanıyor
           url: `/articles/${slug}`,
           method: "GET",
         }),
         providesTags: (result, error, slug) => [{ type: "Articles", id: slug }],
       }),
-      createArticle: build.mutation<ArticleModel, CreateArticleModel>({
-        query: (data: CreateArticleModel) => ({
-          url: `/articles`,
-          method: "POST",
-          body: {
-            title: data.title,
-            content: data.content,
-            image: data.image || "",
-            category: data.category,
-            author: data.author,
-            socialMediaLinks: data.socialMediaLinks || [],
-            status: data.status || "draft",
-          },
-        }),
-        invalidatesTags: ["Articles"],
-      }),
-      updateArticle: build.mutation<ArticleModel, UpdateArticleModel>({
-        query: (data: UpdateArticleModel) => {
-          const { _id, ...body } = data;
-          return {
-            url: `/articles/${_id}`,
-            method: "PUT",
-            body,
-          };
-        },
-        invalidatesTags: (result, error, { _id }) => [
-          { type: "Articles", id: _id },
-          "Articles",
-        ],
-      }),
-      deleteArticle: build.mutation<void, string>({
-        query: (id: string) => ({
-          url: `/articles/${id}`,
-          method: "DELETE",
-        }),
-        invalidatesTags: ["Articles"],
-      }),
+     
+      
+      
     }),
   });
 
@@ -97,8 +69,5 @@ export const {
   useGetArticlesQuery,
   useGetArticleQuery,
   useGetArticleBySlugQuery,
-  useCreateArticleMutation,
-  useUpdateArticleMutation,
-  useDeleteArticleMutation,
 } = articleApi;
 
