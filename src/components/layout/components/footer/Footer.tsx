@@ -1,3 +1,5 @@
+"use client";
+
 import { SocialMedia } from "@/components/socialMedia";
 import React from "react";
 import {
@@ -6,10 +8,37 @@ import {
   FaPinterest,
   FaEnvelope,
   FaTiktok,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaGlobe,
 } from "react-icons/fa";
+import { useGetContactInfoQuery } from "@/features/contact/api/contactApi";
+
+// Icon mapping - backend'den gelen icon string'ini React icon component'ine çevirir
+const getIconComponent = (iconName: string | undefined) => {
+  if (!iconName) {
+    return <FaGlobe />;
+  }
+
+  const iconMap: Record<string, React.ReactNode> = {
+    instagram: <FaInstagram />,
+    youtube: <FaYoutube />,
+    tiktok: <FaTiktok />,
+    pinterest: <FaPinterest />,
+    email: <FaEnvelope />,
+    facebook: <FaFacebook />,
+    twitter: <FaTwitter />,
+    linkedin: <FaLinkedin />,
+    globe: <FaGlobe />,
+  };
+
+  return iconMap[iconName.toLowerCase()] || <FaGlobe />;
+};
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { data: contactInfo, isLoading } = useGetContactInfoQuery();
 
   return (
     <footer
@@ -28,45 +57,34 @@ export const Footer = () => {
         {/* Social Media Icons */}
         <div className="flex justify-center mb-10">
           <div className="py-3 flex justify-center items-center gap-6 text-2xl">
-            <SocialMedia
-              href="https://www.instagram.com/"
-              icon={<FaInstagram />}
-              iconName="Instagram"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
-              href="https://www.pinterest.com/"
-              icon={<FaPinterest />}
-              iconName="Pinterest"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
-              href="https://www.youtube.com/"
-              icon={<FaYoutube />}
-              iconName="Youtube"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
-              href="mailto:info@eyluldenbirbakis.com"
-              icon={<FaEnvelope />}
-              iconName="Email"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
-
-            <SocialMedia
-              href="https://www.tiktok.com/"
-              icon={<FaTiktok />}
-              iconName="TikTok"
-              iconClassName="text-white hover:text-primary transition-colors"
-              allClassName="flex items-center gap-2"
-            />
+            {isLoading ? (
+              // Loading skeleton
+              <div className="flex gap-6">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    key={i}
+                    className="w-8 h-8 rounded-full bg-gray-600 animate-pulse"
+                  />
+                ))}
+              </div>
+            ) : contactInfo?.socialMediaLinks && contactInfo.socialMediaLinks.length > 0 ? (
+              // Backend'den gelen sosyal medya linkleri
+              contactInfo.socialMediaLinks.map((link, index) => (
+                <SocialMedia
+                  key={index}
+                  href={link.url}
+                  icon={getIconComponent(link.icon)}
+                  iconName={link.icon}
+                  iconClassName="text-white hover:text-primary transition-colors"
+                  allClassName="flex items-center gap-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              ))
+            ) : (
+              // Fallback: Eğer API'den veri gelmezse boş göster
+              null
+            )}
           </div>
         </div>
 
