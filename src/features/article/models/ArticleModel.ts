@@ -28,6 +28,7 @@ export interface ArticleModel {
   status: "draft" | "published";
   slug: string;
   views: number;
+  likes?: number; // Beğeni sayısı
   createdAt: string;
   updatedAt: string;
 }

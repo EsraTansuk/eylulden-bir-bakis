@@ -1,6 +1,9 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLikeArticleMutation } from '@/features/article/api/articleApi';
 
 // Icon bileşenleri
 const QuoteIcon = () => (
@@ -57,6 +60,7 @@ interface Category {
 }
 
 interface ArticleCardProps {
+  articleId?: string; // Beğeni işlemi için article ID
   title: string;
   slug: string;
   excerpt: string;
@@ -72,6 +76,7 @@ interface ArticleCardProps {
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({
+  articleId,
   title,
   slug,
   excerpt,
@@ -82,6 +87,57 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   likeCount,
   postFormat = 'standard'
 }) => {
+  const [likeArticle, { isLoading: isLiking }] = useLikeArticleMutation();
+  const [isLiked, setIsLiked] = useState(false);
+  const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
+
+  // Beğeni butonuna tıklandığında (toggle - like/unlike)
+  const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Slug veya ID kullan (slug tercih edilir)
+    const articleIdentifier = slug || articleId;
+    
+    if (!articleIdentifier || isLiking) {
+      console.warn("Beğeni işlemi için articleId veya slug gerekli veya işlem devam ediyor");
+      return;
+    }
+
+    try {
+      const previousLikeCount = currentLikeCount;
+      const result = await likeArticle(articleIdentifier).unwrap();
+      
+      // Backend response'una göre like durumunu belirle
+      // Eğer likes sayısı arttıysa like yapıldı, azaldıysa unlike yapıldı
+      const likesIncreased = result.likes > previousLikeCount;
+      const likesDecreased = result.likes < previousLikeCount;
+      
+      if (likesIncreased) {
+        // Like yapıldı
+        setIsLiked(true);
+      } else if (likesDecreased) {
+        // Unlike yapıldı
+        setIsLiked(false);
+      } else {
+        // Likes sayısı değişmedi, toggle yap
+        setIsLiked(!isLiked);
+      }
+      
+      setCurrentLikeCount(result.likes);
+    } catch (error) {
+      console.error("Beğeni hatası:", error);
+      // Daha detaylı hata mesajı
+      if (error && typeof error === 'object' && 'data' in error) {
+        console.error("Hata detayları:", (error as { data: unknown }).data);
+      }
+      if (error && typeof error === 'object' && 'status' in error) {
+        console.error("HTTP Status:", (error as { status: unknown }).status);
+      }
+      // Kullanıcıya hata göstermek için (opsiyonel)
+      alert("Beğeni işlemi başarısız oldu. Lütfen tekrar deneyin.");
+    }
+  };
   
   // Post format icon
   const renderPostFormatIcon = () => {
@@ -214,9 +270,20 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       <div className=" border-t border-gray-100 p-4 w-full">
         <div className="flex mx-12 justify-between items-center">
           {/* Beğeni */}
-          <button className=" flex items-center text-text-light hover:text-primary">
+          <button 
+            onClick={handleLike}
+            disabled={(!articleId && !slug) || isLiking}
+            className={`flex items-center transition-colors duration-200 ${
+              isLiked 
+                ? "text-primary hover:text-primaryState-hover" 
+                : "text-text-light hover:text-primary"
+            } ${(articleId || slug) ? "cursor-pointer" : "cursor-default"} ${
+              isLiking ? "opacity-50 cursor-wait" : ""
+            }`}
+            title={(!articleId && !slug) ? "Beğeni özelliği kullanılamıyor" : isLiked ? "Beğenmeyi geri al" : "Beğen"}
+          >
             <HeartIcon />
-            <span className="dt-share">{likeCount}</span>
+            <span className="dt-share ml-1">{currentLikeCount}</span>
           </button>
           
           {/* Sosyal medya paylaşım butonları */}

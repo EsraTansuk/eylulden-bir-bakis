@@ -122,9 +122,39 @@ const articleApi = rtkBaseApi
         }),
         providesTags: (result, error, slug) => [{ type: "Articles", id: slug }],
       }),
-     
-      
-      
+      getPopularArticles: build.query<ArticlesResponse, { limit?: number }>({
+        query: ({ limit } = {}) => {
+          const searchParams = new URLSearchParams();
+          if (limit) searchParams.append("limit", limit.toString());
+          
+          const queryString = searchParams.toString();
+          const url = `/articles/popular${queryString ? `?${queryString}` : ""}`;
+          return {
+            url,
+            method: "GET",
+          };
+        },
+        providesTags: ["Articles"],
+      }),
+      likeArticle: build.mutation<{ message: string; likes: number }, string>({
+        query: (articleIdOrSlug: string) => {
+          // Backend hem ID hem slug ile çalışıyor
+          console.log("Like article request:", { articleIdOrSlug, url: `/articles/${articleIdOrSlug}/like` });
+          return {
+            url: `/articles/${articleIdOrSlug}/like`,
+            method: "POST",
+          };
+        },
+        invalidatesTags: (result, error, articleIdOrSlug) => [
+          { type: "Articles", id: articleIdOrSlug },
+          "Articles",
+        ],
+        // Transform response if needed
+        transformResponse: (response: { message: string; likes: number }) => {
+          console.log("Like article response:", response);
+          return response;
+        },
+      }),
     }),
   });
 
@@ -136,5 +166,7 @@ export const {
   useGetArticleBySlugQuery,
   useGetArticlesByCategoryQuery,
   useGetArticlesByCategorySlugQuery,
+  useGetPopularArticlesQuery,
+  useLikeArticleMutation,
 } = articleApi;
 

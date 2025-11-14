@@ -39,6 +39,7 @@ const transformArticleForCard = (article: ArticleModel) => {
   }
 
   return {
+    articleId: article._id,
     title: article.title,
     slug: article.slug,
     excerpt,
@@ -49,7 +50,7 @@ const transformArticleForCard = (article: ArticleModel) => {
       slug: article.author?.slug || article.author?._id || "",
     },
     date: article.createdAt,
-    likeCount: article.views,
+    likeCount: article.likes || 0, // Backend'den likes geliyorsa onu kullan, yoksa 0
     postFormat: "standard" as const,
   };
 };
