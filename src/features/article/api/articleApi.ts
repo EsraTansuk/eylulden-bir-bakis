@@ -136,6 +136,20 @@ const articleApi = rtkBaseApi
         },
         providesTags: ["Articles"],
       }),
+      getLatestArticles: build.query<ArticlesResponse, { limit?: number }>({
+        query: ({ limit } = {}) => {
+          const searchParams = new URLSearchParams();
+          if (limit) searchParams.append("limit", limit.toString());
+          
+          const queryString = searchParams.toString();
+          const url = `/articles/latest${queryString ? `?${queryString}` : ""}`;
+          return {
+            url,
+            method: "GET",
+          };
+        },
+        providesTags: ["Articles"],
+      }),
       likeArticle: build.mutation<{ message: string; likes: number }, string>({
         query: (articleIdOrSlug: string) => {
           // Backend hem ID hem slug ile çalışıyor
@@ -167,6 +181,7 @@ export const {
   useGetArticlesByCategoryQuery,
   useGetArticlesByCategorySlugQuery,
   useGetPopularArticlesQuery,
+  useGetLatestArticlesQuery,
   useLikeArticleMutation,
 } = articleApi;
 
