@@ -1,66 +1,121 @@
+"use client";
+
 import { StickySideMenu } from "@/components/stickySideMenu/StickySideMenu";
 import { Title } from "@/components/Title";
 import React from "react";
+import Image from "next/image";
+import { useGetAboutMeQuery } from "./api/aboutMeApi";
 
 export const AboutMe = () => {
+  const { data: aboutMe, isLoading, error } = useGetAboutMeQuery();
+
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row gap-12">
+          <div className="w-full lg:w-4/6">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+              <div className="w-full h-64 bg-gray-200 rounded mb-6"></div>
+              <div className="space-y-3">
+                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full lg:w-2/6">
+            <StickySideMenu />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error("About me error:", error);
+    return (
+      <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row gap-12">
+          <div className="w-full lg:w-4/6">
+            <Title title="Hakkımda" />
+            <div className="text-gray-600 text-base leading-relaxed mb-6">
+              Hakkımda bilgileri yüklenirken bir hata oluştu.
+            </div>
+          </div>
+          <div className="w-full lg:w-2/6">
+            <StickySideMenu />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!aboutMe) {
+    return (
+      <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
+        <div className="flex flex-col lg:flex-row gap-12">
+          <div className="w-full lg:w-4/6">
+            <Title title="Hakkımda" />
+            <div className="text-gray-600 text-base leading-relaxed mb-6">
+              Henüz hakkımda bilgisi bulunmamaktadır.
+            </div>
+          </div>
+          <div className="w-full lg:w-2/6">
+            <StickySideMenu />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Text'i paragraflara böl (çift satır sonlarına göre)
+  const paragraphs = aboutMe.text.split(/\n\n+/).filter(p => p.trim());
+
   return (
     <div className="max-w-7xl mx-auto py-8 px-4 md:px-0">
-      <div className=" flex flex-col lg:flex-row gap-12">
+      <div className="flex flex-col lg:flex-row gap-12">
         <div className="w-full lg:w-4/6">
-          <Title title="About Me" />
-          <img
-            src="https://soledad.pencidesign.net/wp-content/uploads/2015/10/about-footer.jpg"
-            alt="About Me Fotoğrafı"
-            className="w-full   shadow mb-6 mx-auto"
-          />
-          <p className="text-gray-600 text-base leading-relaxed mb-6">
-            A wonderful serenity has taken possession of my entire soul, like
-            these sweet mornings of spring which I enjoy with my whole heart. I
-            am alone, and feel the charm of existence in this spot, which was
-            created for the bliss of souls like mine. I am so happy, my dear
-            friend, so absorbed in the exquisite sense of mere tranquil
-            existence, that I neglect my talents. I should be incapable of
-            drawing a single stroke at the present moment.
-            <br />
-            <br />
-            When, while the lovely valley teems with vapour around me, and the
-            meridian sun strikes the upper surface of the impenetrable foliage
-            of my trees, and but a few stray gleams steal into the inner
-            sanctuary, I throw myself down among the tall grass by the trickling
-            stream; and, as I lie close to the earth, a thousand unknown plants
-            are noticed.
-          </p>
+          <Title title="Hakkımda" />
+          
+          {aboutMe.photo && (
+            <div className="relative w-full h-96 mb-6">
+              <Image
+                src={aboutMe.photo}
+                alt="Hakkımda Fotoğrafı"
+                fill
+                className="object-cover shadow rounded"
+                sizes="(max-width: 768px) 100vw, 66vw"
+              />
+            </div>
+          )}
 
-          <blockquote className="border-l-4 border-primary pl-4 italic text-gray-500 mb-6">
-            <span className="block mb-2">
-              “Life is a series of natural and spontaneous changes. Don&apos;t
-              resist them – that only creates sorrow. Let reality be reality.
-              Let things flow naturally forward in whatever way they like.”
-            </span>
-            <span className="text-primary font-semibold">LAO TZU</span>
-          </blockquote>
+          <div className="text-gray-600 text-base leading-relaxed mb-6">
+            {paragraphs.map((paragraph, index) => (
+              <React.Fragment key={index}>
+                {paragraph.split('\n').map((line, lineIndex) => (
+                  <React.Fragment key={lineIndex}>
+                    {line}
+                    {lineIndex < paragraph.split('\n').length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+                {index < paragraphs.length - 1 && (
+                  <>
+                    <br />
+                    <br />
+                  </>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
 
-          <h3 className="text-xl font-bold mt-8 mb-4">
-            LOVE WHAT YOU DO. DO WHAT YOU LOVE
-          </h3>
-          <p className="text-gray-600 text-base leading-relaxed mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Donec quam felis, ultricies nec.
-          </p>
-          <ul className="list-disc list-inside text-gray-600 mb-4">
-            <li>In enim justo, rhoncus ut,</li>
-            <li>Curabitur ullamcorper ultricies</li>
-            <li>Donec vitae sapien ut lorem</li>
-          </ul>
-          <p className="text-gray-600 text-base leading-relaxed">
-            Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-            Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut
-            libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci
-            eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit
-            amet nibh. Donec sodales sagittis magna.
-          </p>
+          {aboutMe.quote && (
+            <blockquote className="border-l-4 border-primary pl-4 italic text-gray-500 mb-6">
+              <span className="block mb-2">
+                &ldquo;{aboutMe.quote}&rdquo;
+              </span>
+            </blockquote>
+          )}
         </div>
         <div className="w-full lg:w-2/6">
           <StickySideMenu />
