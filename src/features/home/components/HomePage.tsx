@@ -5,9 +5,9 @@ import { ArticleList } from "@/features/article/components/ArticleList";
 import { useGetArticlesQuery } from "@/features/article/api/articleApi";
 
 export const HomePage = () => {
-  // Carousel için makaleleri çek (ilk 6 makale)
+  // Carousel için tüm makaleleri çek (yüksek limit ile)
   const { data: carouselData, isLoading: isLoadingCarousel } = useGetArticlesQuery(
-    { status: "published", limit: 6 },
+    { status: "published", limit: 100 },
     { skip: false }
   );
 
