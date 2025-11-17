@@ -1,31 +1,32 @@
 "use client";
 
-import { Carousel, PageContent, StickySideMenu } from "@/components";
+import { ArticleCarousel, PageContent, StickySideMenu } from "@/components";
 import { ArticleList } from "@/features/article/components/ArticleList";
+import { useGetArticlesQuery } from "@/features/article/api/articleApi";
 
 export const HomePage = () => {
-  // Slider için örnek görseller
-  const sliderImages = [
-    "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=1200&h=600",
-    "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1200&h=600",
-    "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-    "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-    "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-    "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-    "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-    "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1200&h=600",
-  ];
+  // Carousel için makaleleri çek (ilk 6 makale)
+  const { data: carouselData, isLoading: isLoadingCarousel } = useGetArticlesQuery(
+    { status: "published", limit: 6 },
+    { skip: false }
+  );
+
+  const carouselArticles = carouselData?.articles || [];
 
   return (
     <>
-      {/* Hero Slider */}
+      {/* Hero Slider - Makale Carousel */}
       <PageContent>
         <div className="mb-12">
-          <Carousel
-            images={sliderImages}
-            height="h-[400px] md:h-[600px]"
-            autoPlayInterval={6000}
-          />
+          {isLoadingCarousel ? (
+            <div className="w-full h-[500px] md:h-[600px] bg-gray-200 animate-pulse rounded-lg"></div>
+          ) : carouselArticles.length > 0 ? (
+            <ArticleCarousel
+              articles={carouselArticles}
+              height="h-[300px] md:h-[400px]"
+              autoPlayInterval={6000}
+            />
+          ) : null}
         </div>
         <div className="flex flex-col lg:flex-row gap-12 px-6 lg:px-0">
           <div className="w-full lg:w-4/6">

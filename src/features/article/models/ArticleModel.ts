@@ -29,6 +29,7 @@ export interface ArticleModel {
   slug: string;
   views: number;
   likes?: number; // Beğeni sayısı
+  commentCount?: number; // Yorum sayısı
   createdAt: string;
   updatedAt: string;
 }

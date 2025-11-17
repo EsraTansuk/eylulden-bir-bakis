@@ -4,44 +4,40 @@ import React, { useState, useEffect, useRef } from "react";
 import { CarouselSlide } from "./CarouselSlide";
 import { CarouselIndicators } from "./CarouselIndicators";
 import { CarouselArrows } from "./CarouselArrows";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { CarouselSlideModel } from "./models/CarouselSlideModel";
 
 interface CarouselProps {
-  images: string[];
+  slides?: CarouselSlideModel[];
+  images?: string[]; // Geriye dönük uyumluluk için
   autoPlayInterval?: number;
   showIndicators?: boolean;
   showArrows?: boolean;
   height?: string;
-  slidesPerView?: number;
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
+  slides,
   images,
   autoPlayInterval = 5000,
   showIndicators = true,
   showArrows = true,
-  height = "h-[500px]",
-  slidesPerView: initialSlidesPerView = 2,
+  height = "h-[500px] md:h-[700px]",
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const slideRef = useRef<HTMLDivElement>(null);
-  
-  // Medium ekran boyutu kontrolü (1024px üzeri md kabul ediliyor)
-  const isMediumScreen = useMediaQuery("(min-width: 1024px)");
-  
-  // Ekran boyutuna göre gösterilecek slayt sayısını belirle
-  const slidesPerView = isMediumScreen ? initialSlidesPerView : 1;
+
+  // Geriye dönük uyumluluk: images array'i varsa CarouselSlideModel'e dönüştür
+  const carouselSlides: CarouselSlideModel[] = slides || (images || []).map(img => ({ image: img }));
 
   // Otomatik kaydırma için useEffect
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
-    if (!isHovered && autoPlayInterval > 0) {
+    if (!isHovered && autoPlayInterval > 0 && carouselSlides.length > 1) {
       interval = setInterval(() => {
-        const maxIndex = Math.max(0, images.length - slidesPerView);
         setCurrentIndex((prevIndex) => 
-          prevIndex >= maxIndex ? 0 : prevIndex + 1
+          prevIndex >= carouselSlides.length - 1 ? 0 : prevIndex + 1
         );
       }, autoPlayInterval);
     }
@@ -49,86 +45,69 @@ export const Carousel: React.FC<CarouselProps> = ({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isHovered, autoPlayInterval, images.length, slidesPerView]);
-
-  // Ekran boyutu değiştiğinde currentIndex'i ayarla
-  useEffect(() => {
-    const maxIndex = Math.max(0, images.length - slidesPerView);
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
-    }
-  }, [slidesPerView, images.length, currentIndex]);
+  }, [isHovered, autoPlayInterval, carouselSlides.length]);
 
   // Sonraki slayda geç
   const nextSlide = () => {
-    const maxIndex = Math.max(0, images.length - slidesPerView);
     setCurrentIndex((prevIndex) => 
-      prevIndex >= maxIndex ? 0 : prevIndex + 1
+      prevIndex >= carouselSlides.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   // Önceki slayda geç
   const prevSlide = () => {
-    const maxIndex = Math.max(0, images.length - slidesPerView);
     setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? maxIndex : prevIndex - 1
+      prevIndex === 0 ? carouselSlides.length - 1 : prevIndex - 1
     );
   };
 
   // Belirli bir slayda geç
   const goToSlide = (index: number) => {
-    const maxIndex = Math.max(0, images.length - slidesPerView);
-    setCurrentIndex(Math.min(index, maxIndex));
+    setCurrentIndex(Math.min(index, carouselSlides.length - 1));
   };
 
-  // Kaç adet gösterge olacağını hesapla
-  const totalSlides = Math.max(1, images.length - slidesPerView + 1);
-  
-  // Her bir slayt için genişlik hesapla (4px margin için alan bırak)
-  // Eğer slidesPerView > 1 ise, her slide arasında 4px boşluk olacak
-  const gapSize = slidesPerView > 1 ? (slidesPerView - 1) * 4 : 0;
-  const slideWidth = slidesPerView > 1 
-    ? `calc((100% - ${gapSize}px) / ${slidesPerView})`
-    : '100%';
+  if (carouselSlides.length === 0) {
+    return null;
+  }
 
   return (
     <div 
-      className={`relative w-full ${height} overflow-hidden  shadow-md`}
+      className={`relative w-full ${height} overflow-hidden shadow-lg rounded-lg`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       ref={slideRef}
     >
-      {/* Slayt Gösterisi */}
-      <div 
-        className="flex h-full transition-transform duration-500 ease-in-out"
-        style={{ 
-          transform: slidesPerView > 1 
-            ? `translateX(calc(-${currentIndex} * (100% + 4px) / ${slidesPerView}))`
-            : `translateX(-${currentIndex * 100}%)`
-        }}
-      >
-        {images.map((image, index) => (
-          <CarouselSlide 
+      {/* Slayt Gösterisi - Fade Effect */}
+      <div className="relative w-full h-full">
+        {carouselSlides.map((slide, index) => (
+          <div
             key={index}
-            image={image}
-            index={index}
-            width={slideWidth}
-            isLast={index === images.length - 1}
-          />
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
+            <CarouselSlide 
+              slide={slide}
+              index={index}
+              width="100%"
+              isLast={index === carouselSlides.length - 1}
+              isActive={index === currentIndex}
+            />
+          </div>
         ))}
       </div>
 
       {/* Göstergeler */}
-      {showIndicators && (
+      {showIndicators && carouselSlides.length > 1 && (
         <CarouselIndicators 
-          totalSlides={totalSlides}
+          totalSlides={carouselSlides.length}
           currentIndex={currentIndex}
           goToSlide={goToSlide}
         />
       )}
 
       {/* Oklar */}
-      {showArrows && images.length > slidesPerView && (
+      {showArrows && carouselSlides.length > 1 && (
         <CarouselArrows
           onPrev={prevSlide}
           onNext={nextSlide}
