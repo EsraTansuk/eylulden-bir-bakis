@@ -152,8 +152,8 @@ export const ArticleCarousel: React.FC<ArticleCarouselProps> = ({
                 <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 md:p-8">
                   {/* Kategori */}
                   {article.category && (
-                    <div className="mb-2">
-                      <span className="text-xs md:text-sm font-bold uppercase text-primary">
+                    <div className="mb-1">
+                      <span className="text-[10px] md:text-xs font-bold uppercase text-primary">
                         {article.category.parentCategory 
                           ? `${article.category.parentCategory.name} / ${article.category.name}`
                           : article.category.name}
@@ -162,19 +162,19 @@ export const ArticleCarousel: React.FC<ArticleCarouselProps> = ({
                   )}
                   
                   {/* Başlık */}
-                  <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 drop-shadow-lg line-clamp-2">
+                  <h2 className="text-[14px] md:text-lg lg:text-xl  text-white mb-1 drop-shadow-lg line-clamp-2">
                     {article.title}
                   </h2>
 
                   {/* Meta Bilgiler (Tarih ve Yorum) */}
                   <div className="flex items-center gap-4 text-sm md:text-base text-white/90">
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center text-[10px] md:text-sm gap-1">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                       {formatDate(article.createdAt)}
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center text-[10px] md:text-sm gap-1">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                       </svg>
